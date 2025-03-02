@@ -1,0 +1,96 @@
+
+/* estilos compartidos del inicio de sesion y de registrarse */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #1A1A40, #4B0082);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .auth-container {
+    background-color: rgba(138, 43, 226, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px #8A2BE2;
+    width: 350px;
+  }
+  
+  .auth-container h2 {
+    margin-bottom: 20px;
+    color: #00CED1;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .auth-button, .accept-button, .cancel-button {
+    width: 100%;
+    padding: 8px;
+    font-size:16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin: 10px;
+  }
+  
+  .auth-button {
+    background-color: #00CED1;
+    color: #000;
+  }
+  
+  .auth-button:hover {
+    background-color: #8A2BE2;
+    color: #fff;
+  }
+  
+  .cancel-button {
+    background-color: #00CED1;
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background-color: #FF4500;
+  }
+  
+  .accept-button {
+    background-color: #00CED1;
+    color: #000;
+  }
+  
+  .accept-button:hover {
+    background-color: #8A2BE2;
+    color: #fff;
+  }
+  
+  .auth-link {
+    margin-top: 15px;
+    display: block;
+    color: #00CED1;
+    text-decoration: none;
+  }
+  
+  .auth-link:hover {
+    text-decoration: underline;
+  }
+  

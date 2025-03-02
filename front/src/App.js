@@ -1,13 +1,15 @@
 
 
-import React from "react";
-import Home from "./Home";
-function App() {
+
+
+ import React from "react";
+ import Home from "./Home";
+ function App() {
   return <Home />; // Renderiza la página Home
   return (
-    <div>
-      <Home /> {/* Mostramos la página Home */}
-      </div>
+     <div>
+     <Home /> {/* Mostramos la página Home */}
+     </div>
       );
     }
     export default App;
