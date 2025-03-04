@@ -11,6 +11,8 @@ router.post("/create", archivo.single('image'), (req, res) => {
     const lastName = req.body.lastName;
     const image64 = req.file.buffer.toString('base64');
 
+    console.log(lastName);
+
     db.query('CALL SP_USER_RegisterUser(?, ?, ?, ?, ?, ?)',
         [username, firstName, lastName, email, password, image64], (err, data) => {
             if (err) {
