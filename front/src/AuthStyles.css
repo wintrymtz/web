@@ -1,5 +1,114 @@
+/* .registro-container {
+  background: #6a0dad;
+  padding: 20px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: center;
+  margin: auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.registro-titulo {
+  color: #68e0cf;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.registro-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registro-inputs {
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  color: white;
+  font-weight: bold;
+}
+
+.input-group input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.input-file {
+  background: none;
+  border: none;
+  color: white;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.preview-imagen {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.boton-seleccionar {
+  background: #4fa3d1;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.boton-aceptar {
+  background: #5fd0b5;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.boton-cancelar {
+  background: #5fd0b5;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.boton-seleccionar:hover,
+.boton-aceptar:hover,
+.boton-cancelar:hover {
+  opacity: 0.8;
+} */
+
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 
 /* estilos compartidos del inicio de sesion y de registrarse */
+
 
 body {
     font-family: Arial, sans-serif;
@@ -29,11 +138,13 @@ body {
   .input-group {
     margin-bottom: 15px;
     text-align: left;
+    
   }
   
   .input-group label {
     display: block;
     margin-bottom: 5px;
+    
   }
   
   .input-group input {
@@ -41,6 +152,7 @@ body {
     padding: 10px;
     border: none;
     border-radius: 5px;
+    
   }
   
   .auth-button, .accept-button, .cancel-button {
@@ -94,13 +206,71 @@ body {
     text-decoration: underline;
   }
   
-  /* Estilos para la vista previa de la imagen */
-.image-preview {
-  display: block;
+
+
+
+
+
+
+
+
+  
+
+  /* Contenedor centrado para la imagen de perfil */
+  
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   margin-top: 10px;
-  max-width: 100%;
-  max-height: 100px;
-  border-radius: 5px;
-  /* box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5); */
-  box-shadow: 0px 0px 5px #00CED1; 
+  
 }
+
+/* Estilo mejorado para el input file */
+
+.custom-file-upload {
+  display: inline-block;
+  background-color: #30c3fc; 
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+
+
+  .custom-file-upload:hover {
+    background-color: #1a9ed6;
+  }
+
+
+
+
+/* Ocultar el input file original */
+
+#profileImageInput {
+  display: none;
+}
+
+
+  /* Estilos para la vista previa de la imagen */
+  
+  .image-preview {
+    display: block;
+    margin-top: 10px;
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6);
+  }
+   
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+  
+  
+  

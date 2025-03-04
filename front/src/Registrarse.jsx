@@ -1,3 +1,70 @@
+// import React, { useState } from "react";
+// import "./AuthStyles.css";
+
+// const Registrarse = () => {
+//   const [imagen, setImagen] = useState(null);
+
+//   const handleImagenChange = (event) => {
+//     const file = event.target.files[0];
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         setImagen(reader.result);
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
+
+//   return (
+//     <div className="registro-container">
+//       <h2 className="registro-titulo">Registrarse</h2>
+//       <form className="registro-form">
+//         <div className="registro-inputs">
+//           <div className="input-group">
+//             <label>Nombre(s)</label>
+//             <input type="text" />
+//           </div>
+//           <div className="input-group">
+//             <label>Apellidos</label>
+//             <input type="text" />
+//           </div>
+//           <div className="input-group">
+//             <label>Correo Electrónico</label>
+//             <input type="email" />
+//           </div>
+//           <div className="input-group">
+//             <label>Nombre de Usuario</label>
+//             <input type="text" />
+//           </div>
+//           <div className="input-group">
+//             <label>Contraseña</label>
+//             <input type="password" />
+//           </div>
+//           <div className="input-group">
+//             <label>Imagen de perfil</label>
+//             <input type="file" accept="image/*" onChange={handleImagenChange} className="input-file" />
+//           </div>
+//         </div>
+
+//         {imagen && (
+//           <div className="preview-container">
+//             <img src={imagen} alt="Vista previa" className="preview-imagen" />
+//           </div>
+//         )}
+
+//         <button type="button" className="boton-seleccionar">Seleccionar Imagen</button>
+//         <button type="submit" className="boton-aceptar">Aceptar</button>
+//         <button type="button" className="boton-cancelar">Cancelar</button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default Registrarse;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 import React, { useState } from "react";
 import "./AuthStyles.css";
 import axios from "axios";
@@ -107,7 +174,7 @@ export default Registrarse;
 
 
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
