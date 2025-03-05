@@ -18,9 +18,19 @@ const IniciarSesion = () => {
       password: password
     }).then((res) => {
       if (res.data.msg === 'encontrado') {
-        console.log(res.data);
 
+        const user = res.data.usuario;
+
+        // Guardar información en el localStorage
+        localStorage.setItem('userID', user.userID);
+        localStorage.setItem('userUsername', user.userUsername);
+        localStorage.setItem('userType', user.userType);
+        localStorage.setItem('userPhoto', user.photo);
+        
+        console.log(res.data);
+        console.log("Usuario guardado en localStorage:", user);
         nav('/');
+        
       } else {
         alert('Error');
       }
