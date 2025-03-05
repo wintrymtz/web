@@ -20,7 +20,7 @@ const IniciarSesion = () => {
       if (res.data.msg === 'encontrado') {
         console.log(res.data);
 
-        // nav('/');
+        nav('/');
       } else {
         alert('Error');
       }
