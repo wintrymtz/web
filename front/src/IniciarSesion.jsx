@@ -1,14 +1,35 @@
 import React, { useState } from "react";
 import "./AuthStyles.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const IniciarSesion = () => {
+  const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Iniciando sesión con:", { email, password });
-    // Aquí puedes agregar lógica para enviar los datos a una API
+
+    axios.post('http://localhost:3001/user/login', {
+      email: email,
+      password: password
+    }).then((res) => {
+      if (res.data.msg === 'encontrado') {
+        console.log(res.data);
+
+        // nav('/');
+      } else {
+        alert('Error');
+      }
+    }).catch((err) => {
+      console.log(err.response);
+      if (err.response.data.msg === 'no encontrado') {
+        alert("Usuario no existe")
+      }
+    });
   };
 
   return (
@@ -37,7 +58,7 @@ const IniciarSesion = () => {
         </div>
         <button type="submit" className="auth-button">Ingresar</button>
       </form>
-      <a href="/registrarse" className="auth-link">¿No tienes cuenta? Regístrate</a>
+      <a href="/register" className="auth-link">¿No tienes cuenta? Regístrate</a>
     </div>
   );
 };

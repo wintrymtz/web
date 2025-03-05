@@ -30,7 +30,8 @@ router.post("/create", archivo.single('image'), (req, res) => {
         });
 });
 
-router.get("/", (req, res) => {
+router.post("/login", (req, res) => {
+    console.log(req.body);
 
     db.query('CALL SP_LOGIN_LoginUser(?, ?)',
         [req.body.email, req.body.password], (err, data) => {
@@ -38,15 +39,17 @@ router.get("/", (req, res) => {
                 console.log(err);
                 res.status(500).json({ error: "Internal Server Error" });
             } else {
+                console.log(data[0]);
                 if (data[0].length > 0) {
                     console.log(data[0][0]);
                     res.status(200).json({
-                        "alert": "encontrado",
-                        "usuario": data[0][0].userUsername,
+                        "msg": "encontrado",
+                        "usuario": data[0][0],
                     });
                 } else {
+                    console.log('No encontrado');
                     res.status(401).json({
-                        "alert": "no encontrado",
+                        "msg": "no encontrado",
                     });
                 }
             }

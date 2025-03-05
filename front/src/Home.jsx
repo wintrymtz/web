@@ -33,8 +33,8 @@ const Navbar = () => (
       <li><a href="#">Géneros</a></li>
     </ul>
     <div className="auth-buttons">
-      <a href="#">Iniciar Sesión</a>
-      <a href="#">Registrarse</a>
+      <a href="/login">Iniciar Sesión</a>
+      <a href="/register">Registrarse</a>
     </div>
   </div>
 );

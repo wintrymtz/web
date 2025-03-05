@@ -120,7 +120,7 @@ const Registrarse = () => {
       .then((res) => {
         if (res.data.msg === "ok") {
           alert("Información enviada");
-          nav("/Home");
+          nav("/");
         }
       })
       .catch((error) => {
@@ -152,7 +152,7 @@ const Registrarse = () => {
           <label htmlFor="password">Contraseña</label>
           <input type="password" id="password" name="password" value={userData.password} onChange={handleChange} required />
         </div>
-        
+
         {/* Sección mejorada de imagen de perfil */}
         <div className="input-group">
           <label htmlFor="image">Imagen de perfil</label>

@@ -14,7 +14,7 @@ CREATE TABLE Users (
     email 			VARCHAR(100) UNIQUE NOT NULL,
     pass			VARCHAR(30) NOT NULL,
     userType		INT DEFAULT 0,
-    photo 			MEDIUMBLOB NOT NULL
+    photo 			LONGTEXT NOT NULL
 );
 
 CREATE TABLE Movies (
