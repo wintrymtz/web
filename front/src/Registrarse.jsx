@@ -101,9 +101,48 @@ const Registrarse = () => {
     }
   };
 
+  const validateInputs = () => {
+    const nameRegex = /^[a-zA-ZÁÉÍÓÚáéíóúÑñ ]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const usernameRegex = /^\S+$/;
+
+    if (!userData.nombre.trim() || !userData.apellidos.trim() || !userData.correo.trim() || !userData.usuario.trim() || !userData.password.trim() || !userData.image) {
+      alert("Todos los campos deben llenarse.");
+      return false;
+    }
+
+    if (!nameRegex.test(userData.nombre) || !nameRegex.test(userData.apellidos)) {
+      alert("Nombre inválido, los nombres y apellidos solo pueden contener letras y espacios.");
+      return false;
+    }
+
+    if (!emailRegex.test(userData.correo)) {
+      alert("Favor de introducir un correo electrónico válido");
+      return false;
+    }
+
+    if (!usernameRegex.test(userData.usuario)) {
+      alert("El nombre de usuario no puede contener espacios");
+      return false;
+    }
+
+    if (!passwordRegex.test(userData.password)) {
+      alert("La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo");
+      return false;
+    }
+
+    return true;
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Registrando usuario:", userData);
+
+    if (!validateInputs()){
+      return;
+    } 
 
     const data = new FormData();
     data.append("firstName", userData.nombre);
@@ -134,29 +173,29 @@ const Registrarse = () => {
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="nombre">Nombre(s)</label>
-          <input type="text" id="firstName" name="nombre" value={userData.nombre} onChange={handleChange} required />
+          <input type="text" id="firstName" name="nombre" value={userData.nombre} onChange={handleChange}  />
         </div>
         <div className="input-group">
           <label htmlFor="apellidos">Apellidos</label>
-          <input type="text" id="lastName" name="apellidos" value={userData.apellidos} onChange={handleChange} required />
+          <input type="text" id="lastName" name="apellidos" value={userData.apellidos} onChange={handleChange}  />
         </div>
         <div className="input-group">
           <label htmlFor="correo">Correo Electrónico</label>
-          <input type="email" id="email" name="correo" value={userData.correo} onChange={handleChange} required />
+          <input type="email" id="email" name="correo" value={userData.correo} onChange={handleChange}  />
         </div>
         <div className="input-group">
           <label htmlFor="usuario">Nombre de Usuario</label>
-          <input type="text" id="username" name="usuario" value={userData.usuario} onChange={handleChange} required />
+          <input type="text" id="username" name="usuario" value={userData.usuario} onChange={handleChange}  />
         </div>
         <div className="input-group">
           <label htmlFor="password">Contraseña</label>
-          <input type="password" id="password" name="password" value={userData.password} onChange={handleChange} required />
+          <input type="password" id="password" name="password" value={userData.password} onChange={handleChange}  />
         </div>
 
         {/* Sección mejorada de imagen de perfil */}
         <div className="input-group">
           <label htmlFor="image">Imagen de perfil</label>
-          <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+          <input type="file" className="custom-file-upload" id="image" name="image" accept="image/*" onChange={handleChange} />
           {preview && <img src={preview} alt="Vista previa" className="image-preview" />}
         </div>
 
