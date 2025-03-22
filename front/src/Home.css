@@ -1,125 +1,133 @@
 /* Estilos generales */
+
+#root {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .home-container {
-    background-color: black;
-    color: white;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Navbar */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: black;
-    padding: 15px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #a855f7;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .nav-links a:hover {
-    color: #14b8a6;
-  }
-  
-  .auth-buttons a {
-    background-color: #a855f7;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    margin-left: 10px;
-    transition: background-color 0.3s;
-  }
-  
-  .auth-buttons a:hover {
-    background-color: #14b8a6;
-    color: black;
-  }
-  
-  /* Hero */
-  .hero {
-    text-align: center;
-    padding: 50px 20px;
-    background: linear-gradient(to bottom, #a855f7, black);
-  }
-  
-  .hero h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
-  
-  .hero p {
-    font-size: 1.2rem;
-  }
-  
-  /* Movies Grid */
-  .movies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    justify-items: center;
-  }
-  
-  /* Movie Card */
-  .movie-card {
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    padding: 15px;
-    width: 250px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .movie-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  
-  .movie-card h3 {
-    font-size: 1.2rem;
-    color: #111;
-    margin-top: 10px;
-  }
-  
-  .movie-card p {
-    font-size: 0.9rem;
-    color: #555;
-  }
-  
-  /* Footer */
-  .footer {
-    background-color: #a855f7;
-    text-align: center;
-    padding: 15px;
-    margin-top: 20px;
-  }
-  
-  
-  
-  
-  
-  /* Barra de navegación
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a855f7;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #14b8a6;
+}
+
+.auth-buttons a {
+  background-color: #a855f7;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.auth-buttons a:hover {
+  background-color: #14b8a6;
+  color: black;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+  background: linear-gradient(to bottom, #a855f7, black);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* Movies Grid */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+/* Movie Card */
+.movie-card {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.movie-card h3 {
+  font-size: 1.2rem;
+  color: #111;
+  margin-top: 10px;
+}
+
+.movie-card p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  background-color: #a855f7;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+
+
+
+
+/* Barra de navegación
   .navbar {
       display: flex;
       justify-content: space-between;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AuthStyles.css";
+import "./css/AuthStyles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -26,11 +26,11 @@ const IniciarSesion = () => {
         localStorage.setItem('userUsername', user.userUsername);
         localStorage.setItem('userType', user.userType);
         localStorage.setItem('userPhoto', user.photo);
-        
+
         console.log(res.data);
         console.log("Usuario guardado en localStorage:", user);
         nav('/');
-        
+
       } else {
         alert('Error');
       }
@@ -43,32 +43,34 @@ const IniciarSesion = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="email">Correo Electrónico</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="auth-button">Ingresar</button>
-      </form>
-      <a href="/register" className="auth-link">¿No tienes cuenta? Regístrate</a>
+    <div className="main-container">
+      <div className="auth-container">
+        <h2>Iniciar Sesión</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="email">Correo Electrónico</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="auth-button">Ingresar</button>
+        </form>
+        <a href="/register" className="auth-link">¿No tienes cuenta? Regístrate</a>
+      </div>
     </div>
   );
 };

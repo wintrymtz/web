@@ -1,0 +1,62 @@
+.wTable {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-bottom: 40px;
+    width: 70%;
+}
+
+tr {
+    background-color: rgb(25, 25, 25);
+    height: 7vh;
+    border-radius: 10px;
+}
+
+.wThead {
+    text-align: center;
+    color: rgb(253, 253, 253);
+    background-color: rgb(123, 37, 116);
+}
+
+.wRow {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    color: black;
+    margin-top: 30px;
+}
+
+.wRow:nth-child(odd) {
+    background-color: rgb(244, 244, 244);
+}
+
+.wRow:nth-child(even) {
+    background-color: rgb(212, 212, 212);
+}
+
+.wDelete {
+    background-color: none;
+}
+
+.wContainer-1 {
+    width: 50%;
+    background-color: #181818;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 1vh;
+    padding-top: 5vh;
+    box-shadow: black 0px 0px 20px 0px;
+    margin-bottom: 8vh;
+}
+
+.wLine-1 {
+    color: white;
+    width: 80%;
+    border-width: 1px;
+    opacity: 1;
+}
+
+.wForm {
+    margin-bottom: 2vh;
+}

@@ -111,101 +111,111 @@
 
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #1A1A40, #4B0082);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .auth-container {
-    background-color: rgba(138, 43, 226, 0.8);
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0px 0px 10px #8A2BE2;
-    width: 350px;
-  }
-  
-  .auth-container h2 {
-    margin-bottom: 20px;
-    color: #00CED1;
-  }
-  
-  .input-group {
-    margin-bottom: 15px;
-    text-align: left;
-    
-  }
-  
-  .input-group label {
-    display: block;
-    margin-bottom: 5px;
-    
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    
-  }
-  
-  .auth-button, .accept-button, .cancel-button {
-    width: 100%;
-    padding: 8px;
-    font-size:16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin: 10px;
-  }
-  
-  .auth-button {
-    background-color: #00CED1;
-    color: #000;
-  }
-  
-  .auth-button:hover {
-    background-color: #8A2BE2;
-    color: #fff;
-  }
-  
-  .cancel-button {
-    background-color: #00CED1;
-    color: white;
-  }
-  
-  .cancel-button:hover {
-    background-color: #FF4500;
-  }
-  
-  .accept-button {
-    background-color: #00CED1;
-    color: #000;
-  }
-  
-  .accept-button:hover {
-    background-color: #8A2BE2;
-    color: #fff;
-  }
-  
-  .auth-link {
-    margin-top: 15px;
-    display: block;
-    color: #00CED1;
-    text-decoration: none;
-  }
-  
-  .auth-link:hover {
-    text-decoration: underline;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #1A1A40, #4B0082);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-container {
+  background-color: rgba(138, 43, 226, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 0px 10px #8A2BE2;
+  width: 350px;
+  margin-top: 50px;
+}
+
+.main-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  color: #00CED1;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+
+}
+
+.auth-button,
+.accept-button,
+.cancel-button {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin: 10px;
+}
+
+.auth-button {
+  background-color: #00CED1;
+  color: #000;
+}
+
+.auth-button:hover {
+  background-color: #8A2BE2;
+  color: #fff;
+}
+
+.cancel-button {
+  background-color: #00CED1;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #FF4500;
+}
+
+.accept-button {
+  background-color: #00CED1;
+  color: #000;
+}
+
+.accept-button:hover {
+  background-color: #8A2BE2;
+  color: #fff;
+}
+
+.auth-link {
+  margin-top: 15px;
+  display: block;
+  color: #00CED1;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
 
 
 
@@ -214,24 +224,25 @@ body {
 
 
 
-  
 
-  /* Contenedor centrado para la imagen de perfil */
-  
+
+
+/* Contenedor centrado para la imagen de perfil */
+
 .image-upload-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   margin-top: 10px;
-  
+
 }
 
 /* Estilo mejorado para el input file */
 
 .custom-file-upload {
   display: inline-block;
-  background-color: #30c3fc; 
+  background-color: #30c3fc;
   color: white;
   padding: 8px 12px;
   border-radius: 5px;
@@ -242,9 +253,9 @@ body {
 
 
 
-  .custom-file-upload:hover {
-    background-color: #1a9ed6;
-  }
+.custom-file-upload:hover {
+  background-color: #1a9ed6;
+}
 
 
 
@@ -256,21 +267,16 @@ body {
 }
 
 
-  /* Estilos para la vista previa de la imagen */
-  
-  .image-preview {
-    display: block;
-    margin-top: 10px;
-    max-width: 120px;
-    max-height: 120px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6);
-  }
-   
+/* Estilos para la vista previa de la imagen */
+
+.image-preview {
+  display: block;
+  margin-top: 10px;
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6);
+}
+
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////*/
-
-
-  
-  
-  

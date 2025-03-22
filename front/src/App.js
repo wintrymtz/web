@@ -3,11 +3,15 @@ import Home from "./Home";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import IniciarSesion from "./IniciarSesion";
 import Registrarse from "./Registrarse";
+import UsersList from "./UsersList";
+import CategoriesList from "./CategoriesList";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/users-list" element={<UsersList />}></Route>
+        <Route path="/genres-list" element={<CategoriesList />}></Route>
         <Route path="/login" element={<IniciarSesion />}></Route>
         <Route path="/register" element={<Registrarse />}></Route>
         <Route path="/" element={<Home />}></Route>

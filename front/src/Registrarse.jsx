@@ -66,7 +66,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import React, { useState } from "react";
-import "./AuthStyles.css";
+import "./css/AuthStyles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -140,9 +140,9 @@ const Registrarse = () => {
     e.preventDefault();
     console.log("Registrando usuario:", userData);
 
-    if (!validateInputs()){
+    if (!validateInputs()) {
       return;
-    } 
+    }
 
     const data = new FormData();
     data.append("firstName", userData.nombre);
@@ -168,42 +168,44 @@ const Registrarse = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Registrarse</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="nombre">Nombre(s)</label>
-          <input type="text" id="firstName" name="nombre" value={userData.nombre} onChange={handleChange}  />
-        </div>
-        <div className="input-group">
-          <label htmlFor="apellidos">Apellidos</label>
-          <input type="text" id="lastName" name="apellidos" value={userData.apellidos} onChange={handleChange}  />
-        </div>
-        <div className="input-group">
-          <label htmlFor="correo">Correo Electrónico</label>
-          <input type="email" id="email" name="correo" value={userData.correo} onChange={handleChange}  />
-        </div>
-        <div className="input-group">
-          <label htmlFor="usuario">Nombre de Usuario</label>
-          <input type="text" id="username" name="usuario" value={userData.usuario} onChange={handleChange}  />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">Contraseña</label>
-          <input type="password" id="password" name="password" value={userData.password} onChange={handleChange}  />
-        </div>
+    <div className="main-container">
+      <div className="auth-container">
+        <h2>Registrarse</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="nombre">Nombre(s)</label>
+            <input type="text" id="firstName" name="nombre" value={userData.nombre} onChange={handleChange} />
+          </div>
+          <div className="input-group">
+            <label htmlFor="apellidos">Apellidos</label>
+            <input type="text" id="lastName" name="apellidos" value={userData.apellidos} onChange={handleChange} />
+          </div>
+          <div className="input-group">
+            <label htmlFor="correo">Correo Electrónico</label>
+            <input type="email" id="email" name="correo" value={userData.correo} onChange={handleChange} />
+          </div>
+          <div className="input-group">
+            <label htmlFor="usuario">Nombre de Usuario</label>
+            <input type="text" id="username" name="usuario" value={userData.usuario} onChange={handleChange} />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" id="password" name="password" value={userData.password} onChange={handleChange} />
+          </div>
 
-        {/* Sección mejorada de imagen de perfil */}
-        <div className="input-group">
-          <label htmlFor="image">Imagen de perfil</label>
-          <input type="file" className="custom-file-upload" id="image" name="image" accept="image/*" onChange={handleChange} />
-          {preview && <img src={preview} alt="Vista previa" className="image-preview" />}
-        </div>
+          {/* Sección mejorada de imagen de perfil */}
+          <div className="input-group custom-file-upload">
+            <label htmlFor="image">Imagen de perfil</label>
+            <input type="file" className="custom-file-upload" id="image" name="image" accept="image/*" onChange={handleChange} style={{ display: "none" }} />
+            {preview && <img src={preview} alt="Vista previa" className="image-preview" />}
+          </div>
 
-        <div className="button-group">
-          <button type="button" className="cancel-button" onClick={() => nav("/")}>Cancelar</button>
-          <button type="submit" className="accept-button">Aceptar</button>
-        </div>
-      </form>
+          <div className="button-group">
+            <button type="button" className="cancel-button" onClick={() => nav("/")}>Cancelar</button>
+            <button type="submit" className="accept-button">Aceptar</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
