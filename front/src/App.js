@@ -6,6 +6,9 @@ import Registrarse from "./Registrarse";
 import UsersList from "./UsersList";
 import CategoriesList from "./CategoriesList";
 
+import CrearPelicula from "./CrearPelicula"; 
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -14,7 +17,13 @@ function App() {
         <Route path="/genres-list" element={<CategoriesList />}></Route>
         <Route path="/login" element={<IniciarSesion />}></Route>
         <Route path="/register" element={<Registrarse />}></Route>
-        <Route path="/" element={<Home />}></Route>
+        
+        <Route path="/crear-pelicula" element={<CrearPelicula />}></Route>
+
+        {/* <Route path="/crear-pelicula" element={<CrearPelicula />} /> */}
+        
+<Route path="/" element={<Home />}></Route>
+
       </Routes>
     </BrowserRouter>
   );
