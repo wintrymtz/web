@@ -7,6 +7,7 @@ import UsersList from "./UsersList";
 import CategoriesList from "./CategoriesList";
 
 import CrearPelicula from "./CrearPelicula"; 
+import CrearReseña from "./CrearReseña"; 
 
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <Route path="/register" element={<Registrarse />}></Route>
         
         <Route path="/crear-pelicula" element={<CrearPelicula />}></Route>
+        <Route path="/crear-reseña" element={<CrearReseña />}></Route>
+
 
         {/* <Route path="/crear-pelicula" element={<CrearPelicula />} /> */}
         
