@@ -1,6 +1,6 @@
 
 import "./Home.css"; // Importamos el CSS
-import Navbar2 from "./Navbar";
+import Navbar2 from "./navbar";
 
 const movies = [
   {
