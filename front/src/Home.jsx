@@ -1,5 +1,4 @@
 
-import React from "react";
 import "./Home.css"; // Importamos el CSS
 import Navbar2 from "./Navbar";
 
@@ -56,6 +55,7 @@ const Footer = () => (
 );
 
 export default function Home() {
+
   return (
     <div className="home-container">
       <Navbar2 />

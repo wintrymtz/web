@@ -2,8 +2,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./css/navbar.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Navbar2() {
+    const nav = useNavigate();
+    const [search, setSearch] = useState();
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    }
     return (
         <nav data-bs-theme="dark" class="navbar navbar-expand-lg" style={{ backgroundColor: "#181818" }}>
             <div className="container-fluid">
@@ -53,8 +61,8 @@ function Navbar2() {
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <form class="d-flex" role="search" onSubmit={(e) => { nav(`/search/${search}`) }}>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => handleSearch(e)} />
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
