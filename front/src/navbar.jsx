@@ -59,9 +59,9 @@ function Navbar2() {
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="genres-list">Lista de géneros</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/Crear-Pelicula">Crear Pelicula</a></li>
+                                <li><a class="dropdown-item" href="/create-movie">Crear Pelicula</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/Crear-Reseña">Crear Reseña</a></li>
+                                <li><a class="dropdown-item" href="/create-review">Crear Reseña</a></li>
                             </ul>
                         </li>
                     </ul>

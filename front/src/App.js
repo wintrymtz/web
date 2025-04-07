@@ -8,8 +8,8 @@ import CategoriesList from "./CategoriesList";
 import Profile from "./Profile";
 import Search from "./Search";
 
-import CrearPelicula from "./CrearPelicula"; 
-import CrearReseña from "./CrearReseña"; 
+import CrearPelicula from "./CrearPelicula";
+import CrearReseña from "./CrearReseña";
 
 
 function App() {
@@ -22,14 +22,15 @@ function App() {
         <Route path="/genres-list" element={<CategoriesList />}></Route>
         <Route path="/login" element={<IniciarSesion />}></Route>
         <Route path="/register" element={<Registrarse />}></Route>
-        
-        <Route path="/crear-pelicula" element={<CrearPelicula />}></Route>
-        <Route path="/crear-reseña" element={<CrearReseña />}></Route>
+
+        <Route path="/create-movie" element={<CrearPelicula />}></Route>
+        <Route path="/create-review" element={<CrearReseña />}></Route>
+        <Route path="/home" element={<Home />}></Route>
 
 
         {/* <Route path="/crear-pelicula" element={<CrearPelicula />} /> */}
-        
-<Route path="/" element={<Home />}></Route>
+
+        <Route path="/" element={<Home />}></Route>
 
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar2 from "./Navbar";
+import Navbar2 from "./navbar";
 import "./css/usersList.css";
 
 function Profile() {
@@ -15,6 +15,16 @@ function Profile() {
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
+    }
+
+    const handleImage = (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const url = URL.createObjectURL(file);
+            document.getElementById('image').src = url;
+            setUser({ ...user, 'image': file });
+        }
     }
 
     const update = () => {
@@ -49,11 +59,10 @@ function Profile() {
                         <h1 style={{ marginBottom: "10px", paddingTop: "0px" }}>Perfil</h1>
                         <hr className="wLine-1"></hr>
                         <form onSubmit={(e) => { e.preventDefault() }}>
-                            <img alt="imagen de perfil" src="https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg" style={{ width: "20vh", borderRadius: "50%", margin: "3vh" }}></img>
-
+                            <img id="image" alt="imagen de perfil" src="https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg" style={{ width: "200px", borderRadius: "50%", margin: "3vh" }}></img>
                             <div className="input-group custom-file-upload" style={{ width: "50%", textAlign: "center" }}>
-                                <label htmlFor="image">Imagen de perfil</label>
-                                <input type="file" className="custom-file-upload" id="image" name="image" accept="image/*" onChange={handleChange} style={{ display: "none" }} />
+                                <label htmlFor="imageInput">Imagen de perfil</label>
+                                <input type="file" className="custom-file-upload" id="imageInput" name="image" accept="image/*" onChange={handleImage} style={{ display: "none" }} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="nombre">Nombre(s)</label>
