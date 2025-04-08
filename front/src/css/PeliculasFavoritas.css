@@ -1,0 +1,117 @@
+
+.favoritas-container {
+    background: linear-gradient(to bottom, #3a0d55, #0d021a);
+    min-height: 100vh;
+}
+
+.favoritas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; 
+    justify-content: center;
+    padding: 30px;
+}
+
+.favorita-card {
+    display: flex;
+    flex-direction: row;
+    width: 400px;
+    background-color: rgb(209, 209, 209);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.favorita-card:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.favorita-img-wrapper {
+    position: relative;
+    flex: 0 0 130px;
+}
+
+.favorita-img {
+    width: 210px; 
+    height: 270px; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.favorita-star {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: gold;
+}
+
+.favorita-star:hover {
+    color: rgb(182, 155, 0);
+}
+
+.favorita-texto {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.favorita-texto h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #a855f7;
+}
+
+.favorita-texto p {
+    margin: 0.3rem 0;
+    color: #666;
+}
+
+.confirmacion-popup {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.confirmacion-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.confirmacion-botones button {
+    background-color: #222;
+    color: white;
+    border: 1px solid gold;
+    cursor: pointer;
+}
+
+.confirmacion-botones button:hover {
+    background-color: gold;
+    color: black;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
