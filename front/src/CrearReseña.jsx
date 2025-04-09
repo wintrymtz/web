@@ -77,17 +77,17 @@ const CrearReseña = () => {
         <hr />
       </div>
 
-      <div className="respuesta">
+      {/* <div className="respuesta">
         <div className="avatar pequeño"></div>
         <div className="respuesta-content"></div>
-      </div>
+      </div> */}
     </div>
   );
 };
 
 export default CrearReseña;
 
-
+///////////////////////////////////////////////////////////////////////////////////////
 
 // const CrearReseña = () => {
 //     const [liked, setLiked] = useState(false);

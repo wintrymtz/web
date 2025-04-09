@@ -60,7 +60,8 @@
   .icon {
     font-size: 24px;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s;  /* Transición suave para el color y el tamaño */
+    /* transition: color 0.3s; */
   }
   
   .icon:hover {
@@ -70,7 +71,14 @@
   .icon.active {
     color: #f39c12; /* Cambia de color cuando se activa */
   }
-  
+
+  .icon:nth-child(2).active {
+    color: #ff0000;  /* Verde para el like cuando está activo */
+  }
+
+  .icon.active {
+    transform: scale(1.5);  /* Aumentar tamaño para un efecto visual más llamativo */
+  }
   .divider {
     display: flex;
     align-items: center;
