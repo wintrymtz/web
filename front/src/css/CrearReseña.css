@@ -160,3 +160,29 @@
     cursor: pointer;
   }
   
+
+
+
+
+
+.popup-stars {
+  margin-top: 10px;
+  text-align: center;
+}
+  
+.popup-star {
+  font-size: 2rem;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s;
+  padding: 0 5px;
+}
+  
+.popup-star.filled {
+  color: gold;
+}
+
+.modalReviewCreate {
+  background-color: #3a0d55;
+}
+  

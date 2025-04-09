@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar2 from "./navbar";
 import "./css/Home.css";
 import "./css/DetallePelicula.css";
+import CrearReseña from "./CrearReseña";
 import { useNavigate } from "react-router-dom";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 
@@ -53,6 +54,7 @@ export default function DetallePelicula() {
 
     const [likedReviews, setLikedReviews] = useState([false, false, false]);
     const [favorite, setFavorite] = useState(false);
+    const [mostrarPopup, setMostrarPopup] = useState(false);
 
     const toggleLike = (index) => {
         const newLikes = [...likedReviews];
@@ -102,8 +104,8 @@ export default function DetallePelicula() {
                 <div className="detalle-top">
                     <h3>Reseñas</h3>
 
-                    <button className="detalle-btn" onClick={() => nav("/create-review")}>
-                        Nueva reseña
+                    <button className="detalle-btn" onClick={() => setMostrarPopup(true)}>
+                      Nueva reseña
                     </button>
                 </div>
 
@@ -130,6 +132,8 @@ export default function DetallePelicula() {
 
             </div>
 
+            {mostrarPopup && <CrearReseña onClose={() => setMostrarPopup(false)} />}
         </div>
     );
+
 }
