@@ -39,8 +39,8 @@ function Navbar2() {
                                 Favoritos
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="/">Películas</a></li>
-                                <li><a class="dropdown-item" href="/">Reseñas</a></li>
+                                <li><a className="dropdown-item" href="/movies-fav">Películas</a></li>
+                                <li><a class="dropdown-item" href="/reviews-fav">Reseñas</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                             </ul>
                         </li>
@@ -49,8 +49,8 @@ function Navbar2() {
                                 Géneros
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="/">Aventura</a></li>
-                                <li><a class="dropdown-item" href="/">Terror</a></li>
+                                <li><a className="dropdown-item" href="/search/Aventura">Aventura</a></li>
+                                <li><a class="dropdown-item" href="/search/Terror">Terror</a></li>
                                 {/* <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li> */}
                             </ul>
@@ -66,13 +66,13 @@ function Navbar2() {
                                     <li><a class="dropdown-item" href="genres-list">Lista de géneros</a></li>
                                     <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" href="/create-movie">Crear Pelicula</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="/create-review">Crear Reseña</a></li>
+                                    {/* <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="/create-review">Crear Reseña</a></li> */}
                                 </ul>
                             </li>
                         )}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/login">{image === null ? 'Inicir sesión' : 'Cerrar sesión'}</a>
+                            <a class="nav-link active" aria-current="page" href="/login">{image === null ? 'Inicio sesión' : 'Cerrar sesión'}</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" onSubmit={(e) => { nav(`/search/${search}`) }}>

@@ -55,8 +55,7 @@ const ResenasFavoritas = () => {
         <div className="favoritas-container3">
           <Navbar2 />
 
-          <h1>Tus Reseñas Favoritas</h1>
-          <br />
+          <br></br><br></br><h1>Tus Reseñas Favoritas</h1><br></br>
 
           <div className="favoritas-grid">
             {favorites.map((review) => (

@@ -3,6 +3,12 @@
     min-height: 100vh;
 }
 
+.favoritas-container3 h1 {
+    color: #a855f7;
+    font-size: 64px;
+    font-weight: bold;
+}
+
 .favoritas-grid {
     display: flex;
     flex-direction: column;

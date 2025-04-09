@@ -4,6 +4,12 @@
     min-height: 100vh;
 }
 
+.favoritas-container2 h1 {
+    color: #a855f7;
+    font-size: 64px;
+    font-weight: bold;
+}
+
 .favoritas-grid2 {
     display: flex;
     flex-wrap: wrap;

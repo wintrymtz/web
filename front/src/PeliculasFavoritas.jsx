@@ -56,7 +56,7 @@ const PeliculasFavoritas = () => {
         <div className="favoritas-container2">
             <Navbar2 />
 
-            <h1>Tus Peliculas Favoritas</h1>
+            <br></br><br></br><h1>Tus Peliculas Favoritas</h1>
 
             <div className="favoritas-grid2">              
 
