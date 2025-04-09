@@ -1,11 +1,9 @@
-
-
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Navbar2 from "./navbar";
 import { Modal, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/CrearPelicula.css";
-
+import { useNavigate } from "react-router-dom";
 
 const CrearPelicula = ({ onClose }) => {
   const [titulo, setTitulo] = useState("");
@@ -15,6 +13,11 @@ const CrearPelicula = ({ onClose }) => {
   const [sinopsis, setSinopsis] = useState("");
   const [imagen, setImagen] = useState(null);
   const [errores, setErrores] = useState({});
+  const [mostrarPopup, setMostrarPopup] = useState(false);
+
+  const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
+  const [showRedirect, setShowRedirect] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -48,71 +51,91 @@ const CrearPelicula = ({ onClose }) => {
     setErrores(nuevosErrores);
 
     if (Object.keys(nuevosErrores).length === 0) {
-      const pelicula = { titulo, genero, duracion, anio, sinopsis, imagen };
-      console.log("Película creada:", pelicula);
-      // onClose();
+      setShowPopup(true);
+      setShowRedirect(true);
     }
   };
 
+  const confirmarCreacion = () => {
+    const pelicula = { titulo, genero, duracion, anio, sinopsis, imagen };
+    console.log("Película creada:", pelicula);
+    setMostrarPopup(false);
+    navigate("/Home");
+  };
+
   return (
-    <div className="crear-pelicula">
-      <h2>Crear Película</h2>
+    <div>
+      <Navbar2 />
 
-      <label className="image-upload">
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        <div className="image-preview">
-          {imagen ? <img src={imagen} alt="Preview" /> : <span>📷 Agregar Imagen</span>}
+      <div className="crear-pelicula">
+        <h2>Crear Película</h2>
+
+        <label className="image-upload">
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          <div className="image-preview">
+            {imagen ? <img src={imagen} alt="Preview" /> : <span>📷 Agregar Imagen</span>}
+          </div>
+        </label>
+        {errores.imagen && <p className="error">{errores.imagen}</p>}
+
+        <div className="input-con-contador">
+          <input
+            type="text"
+            placeholder="Título"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+          />
+          <div className="contador">{titulo.length}/40</div>
         </div>
-      </label>
-      {errores.imagen && <p className="error">{errores.imagen}</p>}
+        {errores.titulo && <p className="error">{errores.titulo}</p>}
 
-      <div className="input-con-contador">
+        <select value={genero} onChange={(e) => setGenero(e.target.value)}>
+          <option value="">Seleccionar Género</option>
+          <option value="Acción">Acción</option>
+          <option value="Comedia">Comedia</option>
+          <option value="Drama">Drama</option>
+          <option value="Terror">Terror</option>
+        </select>
+        {errores.genero && <p className="error">{errores.genero}</p>}
+
         <input
           type="text"
-          placeholder="Título"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
+          placeholder="Duración (minutos)"
+          value={duracion}
+          onChange={(e) => setDuracion(e.target.value)}
         />
-        <div className="contador">{titulo.length}/40</div>
+        {errores.duracion && <p className="error">{errores.duracion}</p>}
+
+        <input
+          type="text"
+          placeholder="Año"
+          value={anio}
+          onChange={(e) => setAnio(e.target.value)}
+        />
+        {errores.anio && <p className="error">{errores.anio}</p>}
+
+        <textarea
+          placeholder="Sinopsis"
+          value={sinopsis}
+          onChange={(e) => setSinopsis(e.target.value)}
+        />
+        {errores.sinopsis && <p className="error">{errores.sinopsis}</p>}
+
+        <div className="buttons">
+          <button className="cancelar" onClick={onClose}>Cancelar</button>
+          <button className="aceptar" onClick={handleSubmit}>Aceptar</button>
+        </div>
       </div>
-      {errores.titulo && <p className="error">{errores.titulo}</p>}
 
-      <select value={genero} onChange={(e) => setGenero(e.target.value)}>
-        <option value="">Seleccionar Género</option>
-        <option value="Acción">Acción</option>
-        <option value="Comedia">Comedia</option>
-        <option value="Drama">Drama</option>
-        <option value="Terror">Terror</option>
-      </select>
-      {errores.genero && <p className="error">{errores.genero}</p>}
-
-      <input
-        type="text"
-        placeholder="Duración (minutos)"
-        value={duracion}
-        onChange={(e) => setDuracion(e.target.value)}
-      />
-      {errores.duracion && <p className="error">{errores.duracion}</p>}
-
-      <input
-        type="text"
-        placeholder="Año"
-        value={anio}
-        onChange={(e) => setAnio(e.target.value)}
-      />
-      {errores.anio && <p className="error">{errores.anio}</p>}
-
-      <textarea
-        placeholder="Sinopsis"
-        value={sinopsis}
-        onChange={(e) => setSinopsis(e.target.value)}
-      />
-      {errores.sinopsis && <p className="error">{errores.sinopsis}</p>}
-
-      <div className="buttons">
-        <button className="cancelar" onClick={onClose}>Cancelar</button>
-        <button className="aceptar" onClick={handleSubmit}>Aceptar</button>
-      </div>
+      {/* POPUP DE CONFIRMACIÓN */}
+      <Modal show={showPopup} onHide={() => setShowPopup(false)} centered>
+        <div className="modal-content custom-modal">
+          <Modal.Body className="text-center">
+            <p>Película añadida correctamente</p>
+            <Button variant="light" onClick={() => navigate("/Home")}>Aceptar</Button>
+          </Modal.Body>
+        </div>
+      </Modal>
     </div>
   );
 };
