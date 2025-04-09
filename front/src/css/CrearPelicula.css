@@ -73,6 +73,11 @@
     background-color: #a85de6;
     color: white;
   }
+
+  .editar {
+    background-color: #0bc3e4;
+    color: white;
+  }
   
   .cancelar {
     background-color: #a8324b;
@@ -98,3 +103,40 @@
     font-size: 12px;
     color: #ccc;
   }
+
+  .buttons .cancelar:hover{
+    background-color: rgb(141, 18, 18);
+  }
+
+  .buttons .aceptar:hover{
+    background-color: rgb(67, 12, 104);
+  }
+
+.buttons .editar:hover{
+  background-color: #153c91;
+}
+
+.disabled-input {
+  background-color: #1f1f1f !important;
+  color: #ccc !important;
+  opacity: 1;
+}
+
+.popup-body {
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+}
+
+.modal-content.custom-modal {
+  background: linear-gradient(to right, #3d0f64, #5f2299);
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+.custom-modal .modal-body {
+  font-size: 18px;
+  font-weight: bold;
+}

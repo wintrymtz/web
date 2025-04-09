@@ -8,17 +8,28 @@ import "./css/CrearPelicula.css";
 const EditarPeliculas = () => {
   const navigate = useNavigate();
 
-  // Datos dummy cargados inicialmente
-  const [titulo, setTitulo] = useState("Mi película favorita");
-  const [genero, setGenero] = useState("Acción");
-  const [duracion, setDuracion] = useState("120");
-  const [anio, setAnio] = useState("2020");
-  const [sinopsis, setSinopsis] = useState("Una sinopsis interesante y bien escrita.");
-  const [imagen, setImagen] = useState("https://via.placeholder.com/150");
+  const datosIniciales = {
+    titulo: "Avatar",
+    genero: "Ciencia Ficción",
+    duracion: "162",
+    anio: "2009",
+    sinopsis:
+      "En un exuberante planeta llamado Pandora, un ex-marine parapléjico se embarca en una misión única, pero pronto se ve atrapado entre seguir órdenes y proteger el mundo que siente como su hogar.",
+    imagen:
+      "https://moviepostermexico.com/cdn/shop/products/AVATAR1.jpg?v=1604506515",
+  };
+
+  const [titulo, setTitulo] = useState(datosIniciales.titulo);
+  const [genero, setGenero] = useState(datosIniciales.genero);
+  const [duracion, setDuracion] = useState(datosIniciales.duracion);
+  const [anio, setAnio] = useState(datosIniciales.anio);
+  const [sinopsis, setSinopsis] = useState(datosIniciales.sinopsis);
+  const [imagen, setImagen] = useState(datosIniciales.imagen);
 
   const [errores, setErrores] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showRedirect, setShowRedirect] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -37,7 +48,6 @@ const EditarPeliculas = () => {
     }
 
     if (!genero) nuevosErrores.genero = "Selecciona un género";
-
     if (!duracion || isNaN(duracion) || duracion <= 0) {
       nuevosErrores.duracion = "Ingresa una duración válida";
     }
@@ -53,7 +63,25 @@ const EditarPeliculas = () => {
 
     if (Object.keys(nuevosErrores).length === 0) {
       setShowPopup(true);
-      setTimeout(() => navigate("/Home"), 2000);
+      setShowRedirect(true); // señal para redireccionar tras cerrar
+    }
+  };
+
+  const handleCancelar = () => {
+    setTitulo(datosIniciales.titulo);
+    setGenero(datosIniciales.genero);
+    setDuracion(datosIniciales.duracion);
+    setAnio(datosIniciales.anio);
+    setSinopsis(datosIniciales.sinopsis);
+    setImagen(datosIniciales.imagen);
+    setEditMode(false);
+    setErrores({});
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    if (showRedirect) {
+      navigate("/Home");
     }
   };
 
@@ -79,17 +107,24 @@ const EditarPeliculas = () => {
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             disabled={!editMode}
+            className={!editMode ? "disabled-input" : ""}
           />
           <div className="contador">{titulo.length}/40</div>
         </div>
         {errores.titulo && <p className="error">{errores.titulo}</p>}
 
-        <select value={genero} onChange={(e) => setGenero(e.target.value)} disabled={!editMode}>
+        <select
+          value={genero}
+          onChange={(e) => setGenero(e.target.value)}
+          disabled={!editMode}
+          className={!editMode ? "disabled-input" : ""}
+        >
           <option value="">Seleccionar Género</option>
           <option value="Acción">Acción</option>
           <option value="Comedia">Comedia</option>
           <option value="Drama">Drama</option>
           <option value="Terror">Terror</option>
+          <option value="Ciencia Ficción">Ciencia Ficción</option>
         </select>
         {errores.genero && <p className="error">{errores.genero}</p>}
 
@@ -99,6 +134,7 @@ const EditarPeliculas = () => {
           value={duracion}
           onChange={(e) => setDuracion(e.target.value)}
           disabled={!editMode}
+          className={!editMode ? "disabled-input" : ""}
         />
         {errores.duracion && <p className="error">{errores.duracion}</p>}
 
@@ -108,6 +144,7 @@ const EditarPeliculas = () => {
           value={anio}
           onChange={(e) => setAnio(e.target.value)}
           disabled={!editMode}
+          className={!editMode ? "disabled-input" : ""}
         />
         {errores.anio && <p className="error">{errores.anio}</p>}
 
@@ -116,20 +153,24 @@ const EditarPeliculas = () => {
           value={sinopsis}
           onChange={(e) => setSinopsis(e.target.value)}
           disabled={!editMode}
+          className={!editMode ? "disabled-input" : ""}
         />
         {errores.sinopsis && <p className="error">{errores.sinopsis}</p>}
 
         <div className="buttons">
-          <button className="cancelar" onClick={() => setEditMode(true)}>Editar</button>
+          <button className="editar" onClick={() => setEditMode(true)}>Editar</button>
+          <button className="cancelar" onClick={handleCancelar} disabled={!editMode}>Cancelar</button>
           <button className="aceptar" onClick={handleSubmit} disabled={!editMode}>Aceptar</button>
         </div>
       </div>
 
-      {/* Popup de confirmación */}
       <Modal show={showPopup} onHide={() => setShowPopup(false)} centered>
-        <Modal.Body className="text-center">
-          <p>✅ Película actualizada correctamente</p>
-        </Modal.Body>
+        <div className="modal-content custom-modal">
+          <Modal.Body className="text-center">
+            <p>Película actualizada correctamente</p>
+            <Button variant="light" onClick={() => navigate("/Home")}>Aceptar</Button>
+          </Modal.Body>
+        </div>
       </Modal>
     </div>
   );
