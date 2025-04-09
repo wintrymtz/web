@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/AuthStyles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +41,13 @@ const IniciarSesion = () => {
       }
     });
   };
+
+  useEffect(() => {
+    localStorage.removeItem('userID');
+    localStorage.removeItem('userUsername');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userPhoto');
+  }) //CERRAR SESION
 
   return (
     <div className="main-container">

@@ -3,12 +3,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./css/navbar.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Navbar2() {
     const nav = useNavigate();
     const [search, setSearch] = useState();
+    const [image, setIamge] = useState('');
+    const [userType, setUserType] = useState('');
 
+    useEffect(() => {
+        setIamge(localStorage.getItem('userPhoto'));
+        setUserType(localStorage.getItem('userType'));
+        setUserType('1'); /// adminnistrador opciones (1 -> admin)
+    }, [])
     const handleSearch = (e) => {
         setSearch(e.target.value);
     }
@@ -24,9 +31,9 @@ function Navbar2() {
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
+                        {/* <li class="nav-item">
                             <a class="nav-link" href="/">Favoritos</a>
-                        </li>
+                        </li> */}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Favoritos
@@ -35,7 +42,6 @@ function Navbar2() {
                                 <li><a className="dropdown-item" href="/">Películas</a></li>
                                 <li><a class="dropdown-item" href="/">Reseñas</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/">Something else here</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -49,20 +55,24 @@ function Navbar2() {
                                 <li><a class="dropdown-item" href="#">Something else here</a></li> */}
                             </ul>
                         </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="Admin-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administrador
-                            </a>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="/users-list">Lista de usuarios</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="genres-list">Lista de géneros</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/create-movie">Crear Pelicula</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/create-review">Crear Reseña</a></li>
-                            </ul>
+                        {(userType === '1' &&
+                            < li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="Admin-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administrador
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="/users-list">Lista de usuarios</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="genres-list">Lista de géneros</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="/create-movie">Crear Pelicula</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="/create-review">Crear Reseña</a></li>
+                                </ul>
+                            </li>
+                        )}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/login">{image === null ? 'Inicir sesión' : 'Cerrar sesión'}</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" onSubmit={(e) => { nav(`/search/${search}`) }}>
@@ -70,10 +80,11 @@ function Navbar2() {
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
-                    <a href="/profile"><img alt="profile-image" style={{ borderRadius: "50%", width: "50px", marginLeft: "50px" }} src="https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg"></img></a>
+                    <a href={image === null ? "/register" : "/profile"}><img alt="profile-image" style={{ borderRadius: "50%", width: "50px", marginLeft: "50px" }} src={image === null ? "https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg" : `data:image/png;base64,${image}`}></img></a>
+
                 </div>
             </div>
-        </nav>
+        </nav >
     );
 }
 export default Navbar2;

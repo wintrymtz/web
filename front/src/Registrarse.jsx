@@ -69,6 +69,7 @@ import React, { useState } from "react";
 import "./css/AuthStyles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PopUp1 from "./PopUp1";
 
 const Registrarse = () => {
   const nav = useNavigate();
@@ -80,6 +81,9 @@ const Registrarse = () => {
     password: "",
     image: null,
   });
+
+  const [show, setShow] = useState(false);
+  const [warn, setWarn] = useState('');
 
   const [preview, setPreview] = useState(null); // Estado para la vista previa
 
@@ -108,27 +112,32 @@ const Registrarse = () => {
     const usernameRegex = /^\S+$/;
 
     if (!userData.nombre.trim() || !userData.apellidos.trim() || !userData.correo.trim() || !userData.usuario.trim() || !userData.password.trim() || !userData.image) {
-      alert("Todos los campos deben llenarse.");
+      setWarn("Todos los campos deben llenarse.");
+      setShow(true);
       return false;
     }
 
     if (!nameRegex.test(userData.nombre) || !nameRegex.test(userData.apellidos)) {
-      alert("Nombre inválido, los nombres y apellidos solo pueden contener letras y espacios.");
+      setWarn("Nombre inválido, los nombres y apellidos solo pueden contener letras y espacios.");
+      setShow(true);
       return false;
     }
 
     if (!emailRegex.test(userData.correo)) {
-      alert("Favor de introducir un correo electrónico válido");
+      setWarn("Favor de introducir un correo electrónico válido");
+      setShow(true);
       return false;
     }
 
     if (!usernameRegex.test(userData.usuario)) {
-      alert("El nombre de usuario no puede contener espacios");
+      setWarn("El nombre de usuario no puede contener espacios");
+      setShow(true);
       return false;
     }
 
     if (!passwordRegex.test(userData.password)) {
-      alert("La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo");
+      setWarn("La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo");
+      setShow(true);
       return false;
     }
 
@@ -158,7 +167,8 @@ const Registrarse = () => {
       })
       .then((res) => {
         if (res.data.msg === "ok") {
-          alert("Información enviada");
+          setWarn("Usuario creado correctamente");
+          setShow(true);
           nav("/");
         }
       })
@@ -168,7 +178,14 @@ const Registrarse = () => {
   };
 
   return (
+
     <div className="main-container">
+      <PopUp1
+        title='ADVERTENCIA'
+        text={warn}
+        show={show}
+        onClose={() => { setShow(false) }}>
+      </PopUp1>
       <div className="auth-container">
         <h2>Registrarse</h2>
         <form onSubmit={handleSubmit}>
@@ -182,7 +199,7 @@ const Registrarse = () => {
           </div>
           <div className="input-group">
             <label htmlFor="correo">Correo Electrónico</label>
-            <input type="email" id="email" name="correo" value={userData.correo} onChange={handleChange} />
+            <input type="text" id="email" name="correo" value={userData.correo} onChange={handleChange} />
           </div>
           <div className="input-group">
             <label htmlFor="usuario">Nombre de Usuario</label>
