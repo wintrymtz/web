@@ -62,12 +62,12 @@ const CrearReseña = () => {
           >
             ⭐
           </span>
-          <span 
+          {/* <span 
             className={`icon ${liked ? "active" : ""}`} 
             onClick={() => setLiked(!liked)}
           >
             👍
-          </span>
+          </span> */}
         </div>
       </div>
 
