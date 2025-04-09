@@ -1,3 +1,8 @@
+.favoritas-container3 {
+    background: linear-gradient(to bottom, #3a0d55, #0d021a);
+    min-height: 100vh;
+}
+
 .favoritas-grid {
     display: flex;
     flex-direction: column;

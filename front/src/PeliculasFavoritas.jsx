@@ -53,36 +53,36 @@ const PeliculasFavoritas = () => {
     };
 
     return (
-        <div className="favoritas-container">
+        <div className="favoritas-container2">
             <Navbar2 />
 
-            <h1>Tus Peliculas Favoritas</h1><br></br>
+            <h1>Tus Peliculas Favoritas</h1>
 
-            <div className="favoritas-grid">              
+            <div className="favoritas-grid2">              
 
                 {favorites.map(peli => (
-                    <div className="favorita-card" key={peli.id} onClick={() => navigate("/details")} >
-                        <div className="favorita-img-wrapper">
-                            <img src={peli.image} alt={peli.title} className="favorita-img" />
-                            <button className="favorita-star" onClick={(e) => { e.stopPropagation(); setDeleteMovie(peli.id); }}> <FaStar size={35} /> </button>
+                    <div className="favorita-card2" key={peli.id} onClick={() => navigate("/details")} >
+                        <div className="favorita-img-wrapper2">
+                            <img src={peli.image} alt={peli.title} className="favorita-img2" />
+                            <button className="favorita-star2" onClick={(e) => { e.stopPropagation(); setDeleteMovie(peli.id); }}> <FaStar size={35} /> </button>
 
                             {/* Confirmación */}
                             {deleteMovie === peli.id && (
-                                <div className="confirmacion-popup" onClick={(e) => e.stopPropagation()}>
+                                <div className="confirmacion-popup2" onClick={(e) => e.stopPropagation()}>
                                     <p>¿Quitar de favoritos?</p>
-                                    <div className="confirmacion-botones">
-                                        <button className="confirmacion-si" onClick={() => toggleFavorita(peli.id)}>Sí</button>
-                                        <button className="confirmacion-no" onClick={() => setDeleteMovie(null)}>No</button>
+                                    <div className="confirmacion-botones2">
+                                        <button className="confirmacion-si2" onClick={() => toggleFavorita(peli.id)}>Sí</button>
+                                        <button className="confirmacion-no2" onClick={() => setDeleteMovie(null)}>No</button>
                                     </div>
                                 </div>
                             )}
                         </div>
 
-                        <div className="favorita-texto">
+                        <div className="favorita-texto2">
                             <h3>{peli.title}</h3>
                             <p><strong>Año:</strong> {peli.year}</p>
                             <p><strong>Calificación:</strong></p>
-                            <div className="favorita-estrellas">
+                            <div className="favorita-estrellas2">
                                 {[...Array(5)].map((_, i) => (
                                     <FaStar
                                         key={i}

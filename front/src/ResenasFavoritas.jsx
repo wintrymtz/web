@@ -52,7 +52,7 @@ const ResenasFavoritas = () => {
     };
 
     return (
-        <div className="favoritas-container">
+        <div className="favoritas-container3">
           <Navbar2 />
 
           <h1>Tus Reseñas Favoritas</h1>
