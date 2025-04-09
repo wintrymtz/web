@@ -4,9 +4,10 @@ body {
     padding: 0;
 }
 
-.home-container {
+
+/* .home-container {
     background: linear-gradient(to bottom, #3a0d55, #0d021a);
-}
+} */
 
 .detalle-container {
     padding: 4vh 10vw;
@@ -83,7 +84,7 @@ body {
     cursor: pointer;
 }
 
-.detalle-btn:hover{
+.detalle-btn:hover {
     background-color: #b950f7;
 }
 
@@ -163,10 +164,11 @@ body {
     color: #ccc;
 }
 
+/* 
 h1 {
     color: #a855f7;
     font-size: 72px;
-}
+} */
 
 .detalle-sinopsis h2 {
     color: #a855f7;

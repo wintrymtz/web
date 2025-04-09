@@ -1,4 +1,4 @@
-import "./Home.css"; // Importamos el CSS
+import "./css/Home.css"; // Importamos el CSS
 
 function Footer() {
     return (

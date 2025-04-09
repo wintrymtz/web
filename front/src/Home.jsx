@@ -1,5 +1,5 @@
 
-import "./Home.css"; // Importamos el CSS
+import "./css/Home.css"; // Importamos el CSS
 import Navbar2 from "./navbar";
 import MovieCard from "./MovieCard";
 import Footer from "./Footer";
