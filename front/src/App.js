@@ -10,7 +10,7 @@ import Search from "./Search";
 import MovieDetails from "./DetallePelicula";
 import FavoriteMovies from "./PeliculasFavoritas";
 import FavoriteReviews from "./ResenasFavoritas";
-
+import MovieEdit from "./EditarPeliculas";
 import CrearPelicula from "./CrearPelicula";
 import CrearReseña from "./CrearReseña";
 
@@ -19,7 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
+        <Route path="/movie-edit" element={<MovieEdit />}></Route>
         <Route path="/reviews-fav" element={<FavoriteReviews />}></Route>
         <Route path="/movies-fav" element={<FavoriteMovies />}></Route>
         <Route path="/details" element={<MovieDetails />}></Route>
