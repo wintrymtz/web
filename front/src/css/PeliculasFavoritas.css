@@ -1,10 +1,10 @@
 
-.favoritas-container {
+.favoritas-container2 {
     background: linear-gradient(to bottom, #3a0d55, #0d021a);
     min-height: 100vh;
 }
 
-.favoritas-grid {
+.favoritas-grid2 {
     display: flex;
     flex-wrap: wrap;
     gap: 30px; 
@@ -12,7 +12,7 @@
     padding: 30px;
 }
 
-.favorita-card {
+.favorita-card2 {
     display: flex;
     flex-direction: row;
     width: 400px;
@@ -24,17 +24,17 @@
     transition: transform 0.2s;
 }
 
-.favorita-card:hover {
+.favorita-card2:hover {
     transform: scale(1.02);
     cursor: pointer;
 }
 
-.favorita-img-wrapper {
+.favorita-img-wrapper2 {
     position: relative;
     flex: 0 0 130px;
 }
 
-.favorita-img {
+.favorita-img2 {
     width: 210px; 
     height: 270px; 
     object-fit: cover;
@@ -42,7 +42,7 @@
     transition: transform 0.3s ease;
 }
 
-.favorita-star {
+.favorita-star2 {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -53,11 +53,11 @@
     color: gold;
 }
 
-.favorita-star:hover {
+.favorita-star2:hover {
     color: rgb(182, 155, 0);
 }
 
-.favorita-texto {
+.favorita-texto2 {
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -65,19 +65,19 @@
     flex: 1;
 }
 
-.favorita-texto h3 {
+.favorita-texto2 h3 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: #a855f7;
 }
 
-.favorita-texto p {
+.favorita-texto2 p {
     margin: 0.3rem 0;
     color: #666;
 }
 
-.confirmacion-popup {
+.confirmacion-popup2 {
     position: absolute;
     bottom: 10px;
     left: 10px;
@@ -88,19 +88,19 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.confirmacion-botones {
+.confirmacion-botones2 {
     display: flex;
     gap: 10px;
 }
 
-.confirmacion-botones button {
+.confirmacion-botones2 button {
     background-color: #222;
     color: white;
     border: 1px solid gold;
     cursor: pointer;
 }
 
-.confirmacion-botones button:hover {
+.confirmacion-botones2 button:hover {
     background-color: gold;
     color: black;
 }
