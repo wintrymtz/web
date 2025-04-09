@@ -56,7 +56,10 @@ const PeliculasFavoritas = () => {
         <div className="favoritas-container">
             <Navbar2 />
 
-            <div className="favoritas-grid">
+            <h1>Tus Peliculas Favoritas</h1><br></br>
+
+            <div className="favoritas-grid">              
+
                 {favorites.map(peli => (
                     <div className="favorita-card" key={peli.id} onClick={() => navigate("/details")} >
                         <div className="favorita-img-wrapper">
@@ -92,7 +95,7 @@ const PeliculasFavoritas = () => {
                     </div>
                 ))}
             </div>
-            
+
         </div>
     );
 };

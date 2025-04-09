@@ -67,16 +67,16 @@
   
 .favorita-star {
     position: absolute;
-    right: -40px;
+    right: -80px;
     top: 10px;
     background: transparent;
     border: none;
     cursor: pointer;
-    color: rgb(0, 0, 255);
+    color: rgb(116, 116, 255);
 }
   
 .favorita-star:hover {
-    color: rgb(0, 109, 182);
+    color: rgb(0, 86, 143);
 }
   
 .confirmacion-popup {

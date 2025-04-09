@@ -83,7 +83,7 @@ const ResenasFavoritas = () => {
                   </div>
                     
                   <button className="favorita-star" onClick={(e) => { setDeleteReview(review.id); }}>
-                    <FaThumbsUp size={36} />
+                    <FaThumbsUp size={50} />
                   </button>
                 </div>
                 
@@ -97,7 +97,7 @@ const ResenasFavoritas = () => {
                       <button onClick={() => toggleFavorita(review.id)}>Sí</button>
                       <button onClick={() => setDeleteReview(null)}>No</button>
                     </div>
-                    
+
                   </div>
                 )}
               </div>
