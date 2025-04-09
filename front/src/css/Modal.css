@@ -1,0 +1,15 @@
+.my-modal .modal-content {
+    background-color: rgb(24, 24, 24);
+    color: rgb(255, 255, 255);
+    border: solid rgb(255, 255, 255);
+}
+
+.my-modal .btn-close {
+    filter: invert(1);
+    /* blanco */
+}
+
+.my-modal .modal-header,
+.my-modal .modal-footer {
+    border: 0px;
+}

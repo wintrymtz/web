@@ -3,45 +3,71 @@ import { Modal, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar2 from "./navbar";
 import "./css/usersList.css";
+import PopUp2 from "./PopUp2";
+import PopUp1 from "./PopUp1";
 
 function CategoriesList() {
     const [categories, setCategories] = useState([]);
-    const [show, setShow] = useState(false);
-    const [userDelete, setUserDelete] = useState(null);
+    const [show, setShow] = useState(false);//para la eliminacion
+    const [show2, setShow2] = useState(false); //para la creacion
+    const [categoryDelete, setCategoryDelete] = useState(null);
     const [categoryCreate, setCategoryCreate] = useState(false);
 
     const [categoryName, setCategoryName] = useState("");
     const [categoryDesc, setCategoryDesc] = useState("");
 
+    const [warn, setWarn] = useState('');
+
 
     function handleCategoryName(e) {
         let value = e.target.value;
-
-        // if (value.length > 10) {
-        //     alert("El nombre del género no puede tener más de 10 caracteres");
-        //     return;
-        // }
-        // if (value.length < 3) {
-        //     alert("El nombre del género no puede tener menos de 3 caracteres");
-        //     return;
-        // }
-
         setCategoryName(value);
     }
 
     function handleCategoryDesc(e) {
         let value = e.target.value;
-
-        // if (value.length > 10) {
-        //     alert("El nombre del género no puede tener más de 10 caracteres");
-        //     return;
-        // }
-        // if (value.length < 3) {
-        //     alert("El nombre del género no puede tener menos de 3 caracteres");
-        //     return;
-        // }
-
         setCategoryDesc(value);
+    }
+
+    function validate() {
+
+        if (categoryDesc.length > 200) {
+            setWarn("la descripcion del género no puede sobrepasar los 200 caracteres");
+            setShow2(true);
+            return false;
+        }
+
+        if (categoryDesc.length < 3) {
+            setWarn("la descripcion del género no puede ser menor a los 3 caracteres");
+            setShow2(true);
+            return false;
+        }
+
+        if (categoryName.length > 20) {
+            setWarn("El nombre del género no puede tener más de 20 caracteres");
+            setShow2(true);
+            return false;
+        }
+
+        if (categoryName.length < 3) {
+            setWarn("El nombre del género no puede tener menos de 3 caracteres");
+            setShow2(true);
+            return false;
+        }
+
+        return true;
+    }
+
+    function createCategory(e) {
+        e.preventDefault();
+        console.log(categoryName, categoryDesc);
+        setCategoryCreate(true);
+
+        if (!validate()) return;
+
+        setWarn('Creada correctamente');
+        setShow2(true);
+        //peticion para guardarla
     }
 
     function dummy() {
@@ -55,22 +81,11 @@ function CategoriesList() {
     }
 
     function handleDeleteUser(id) {
-        setUserDelete(id);
+        setCategoryDelete(id);
         setShow(true);
     }
 
-    function createCategory(e) {
-        e.preventDefault();
-        console.log(categoryName, categoryDesc);
-        setCategoryCreate(true);
-
-        document.getElementById("categoryDescInput").value = "";
-        document.getElementById("categoryNameInput").value = "";
-
-        //peticion para guardarla
-    }
-
-    function deleteUser(id) {
+    function deleteCategory(id) {
 
         setCategories(categories.filter(user => user.id !== id));
         //peticion al servidor
@@ -81,26 +96,27 @@ function CategoriesList() {
             setCategoryCreate(false);
             return;
         }
-
         dummy();
-        console.log("recargando");
     }, [categoryCreate,]);
 
     return (
         <div>
-            {/* Modal con React Bootstrap */}
-            <Modal show={show} onHide={() => setShow(false)} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title style={{ color: "black" }}>¿Está seguro de eliminar este usuario?</Modal.Title>
-                </Modal.Header>
-                <Modal.Body style={{ color: "black" }}><p>Esta accion no se puede revertir</p></Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(false)}>Cancelar</Button>
-                    <Button variant="danger" onClick={() => { setShow(false); deleteUser(userDelete); }}>Eliminar</Button>
-                </Modal.Footer>
-            </Modal>
-
             <Navbar2 />
+
+            <PopUp2
+                title='ADVERTENCIA'
+                text={`Seguro que quieres eliminar la categoría con el id: ${categoryDelete}`}
+                show={show}
+                onClose={() => { setShow(false) }}
+                onAccept={() => { deleteCategory(categoryDelete) }} >
+            </PopUp2>
+
+            <PopUp1
+                title='ADVERTENCIA'
+                text={warn}
+                show={show2}
+                onClose={() => { setShow2(false) }}>
+            </PopUp1>
             <div className="hero" style={{ height: "100%" }}>
                 <div style={{ height: "1400px", display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <div className="wContainer-1">
@@ -132,7 +148,7 @@ function CategoriesList() {
                     <div className="wContainer-1" style={{ textAlign: "left" }}>
                         <h1>Nueva Categoría</h1>
                         <hr className="wLine-1"></hr>
-                        <form style={{ width: "80%", marginBottom: "5vh" }} onSubmit={(e) => { createCategory(e, "") }}>
+                        <form style={{ width: "80%", marginBottom: "5vh" }} onSubmit={(e) => { createCategory(e) }}>
                             <div className="form-group wForm">
                                 <label for="exampleFormControlInput1">Nombre de la categoría</label>
                                 <input type="text" className="form-control" id="categoryNameInput" placeholder="terror..." onChange={(e) => handleCategoryName(e)} />

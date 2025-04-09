@@ -3,6 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar2 from "./navbar";
 import "./css/usersList.css";
+import PopUp2 from "./PopUp2";
+import PopUp1 from "./PopUp1";
 
 function UsersList() {
     const [users, setUsers] = useState([]);
@@ -24,6 +26,10 @@ function UsersList() {
         setShow(true);
     }
 
+    useEffect(() => {
+        console.log("showUsers", show);
+    }, [show])
+
     function deleteUser(id) {
 
         setUsers(users.filter(user => user.id !== id));
@@ -34,20 +40,19 @@ function UsersList() {
         dummy();
     }, []);
 
+    function falseShow() {
+        console.log('uwu');
+    }
+
     return (
         <div>
-            {/* Modal con React Bootstrap */}
-            <Modal show={show} onHide={() => setShow(false)} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title style={{ color: "black" }}>¿Está seguro de eliminar este usuario?</Modal.Title>
-                </Modal.Header>
-                <Modal.Body style={{ color: "black" }}><p>Esta accion no se puede revertir</p></Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(false)}>Cancelar</Button>
-                    <Button variant="danger" onClick={() => { setShow(false); deleteUser(userDelete); }}>Eliminar</Button>
-                </Modal.Footer>
-            </Modal>
-
+            <PopUp2
+                title='ADVERTENCIA'
+                text={`Seguro que quieres eliminar al usuario con el id: ${userDelete}`}
+                show={show}
+                onClose={() => { setShow(false) }}
+                onAccept={() => { deleteUser(userDelete) }} >
+            </PopUp2>
             <Navbar2 />
             <div className="hero" style={{ height: "100%" }}>
                 <div style={{ height: "1000px", display: "flex", flexDirection: "column", alignItems: "center" }}>
