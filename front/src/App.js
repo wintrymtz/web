@@ -7,6 +7,9 @@ import UsersList from "./UsersList";
 import CategoriesList from "./CategoriesList";
 import Profile from "./Profile";
 import Search from "./Search";
+import MovieDetails from "./DetallePelicula";
+import FavoriteMovies from "./PeliculasFavoritas";
+import FavoriteReviews from "./ResenasFavoritas";
 
 import CrearPelicula from "./CrearPelicula";
 import CrearReseña from "./CrearReseña";
@@ -16,6 +19,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        
+        <Route path="/reviews-fav" element={<FavoriteReviews />}></Route>
+        <Route path="/movies-fav" element={<FavoriteMovies />}></Route>
+        <Route path="/details" element={<MovieDetails />}></Route>
         <Route path="/search/:input" element={<Search />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/users-list" element={<UsersList />}></Route>
