@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar2 from "./navbar";
 import "./css/usersList.css";
 import PopUp1 from "./PopUp1";
+import Footer from "./Footer";
 
 function Profile() {
     const [user, setUser] = useState([]);
@@ -136,6 +137,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div >
     );
 }

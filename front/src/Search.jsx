@@ -4,51 +4,39 @@ import "./Home.css"; // Importamos el CSS
 import "./css/usersList.css";
 import Navbar2 from "./navbar";
 import { useNavigate, useParams } from "react-router-dom";
+import MovieCard from "./MovieCard";
+import Footer from "./Footer";
 
 const movies = [
     {
         title: "Avatar",
         image: "https://m.media-amazon.com/images/I/91N1lG+LBIS._AC_UF894,1000_QL80_.jpg",
-        description: "Una película de ciencia ficción."
+        description: "Una película de ciencia ficción.",
+        calif: "8/10",
+        year: "2010"
     },
     {
         title: "Intensamente 2",
         image: "https://lumiere-a.akamaihd.net/v1/images/1_intensamente_2_payoff_banner_pre_1_aa3d9114.png",
-        description: "Secuela de Intensamente."
+        description: "Secuela de Intensamente.",
+        calif: "6/10",
+        year: "2010"
     },
     {
         title: "Annabelle 3",
         image: "https://hips.hearstapps.com/hmg-prod/images/poster-peliculas-terror-2019-annabelle-3-1578395572.jpg",
-        description: "Nueva entrega de la saga de terror."
+        description: "Nueva entrega de la saga de terror.",
+        calif: "6/10",
+        year: "2010"
     },
     {
         title: "Avatar 2",
         image: "https://lumiere-a.akamaihd.net/v1/images/poster-avatar-2-lat_46034440_1_c359a2d2.png",
-        description: "El regreso a Pandora."
-    },
-    {
-        title: "Avatar 2",
-        image: "https://lumiere-a.akamaihd.net/v1/images/poster-avatar-2-lat_46034440_1_c359a2d2.png",
-        description: "El regreso a Pandora."
-    },
-    {
-        title: "Avatar 2",
-        image: "https://lumiere-a.akamaihd.net/v1/images/poster-avatar-2-lat_46034440_1_c359a2d2.png",
-        description: "El regreso a Pandora."
-    },
-    {
-        title: "Avatar 2",
-        image: "https://lumiere-a.akamaihd.net/v1/images/poster-avatar-2-lat_46034440_1_c359a2d2.png",
-        description: "El regreso a Pandora."
+        description: "El regreso a Pandora.",
+        calif: "6/10",
+        year: "2010"
     }
 ];
-
-
-const Footer = () => (
-    <footer className="footer">
-        <p>&copy; Resúmenes de películas de todo tipo. Reservados todos los derechos.</p>
-    </footer>
-);
 
 export default function Search() {
 
@@ -57,15 +45,6 @@ export default function Search() {
     const [order, setOrder] = useState("");
     const [genre, setGenre] = useState("");
     const nav = useNavigate();
-
-
-    const MovieCard = ({ title, image, description }) => (
-        <div className="movie-card">
-            <img src={image} alt={title} />
-            <h3>{title}</h3>
-            <p>{description}</p>
-        </div>
-    );
 
     const MoviesGrid = () => (
         <div className="movies-grid">
@@ -96,6 +75,8 @@ export default function Search() {
                 <div className="wContainer-1" style={{ width: "90%", margin: "auto", marginBottom: "5vh", paddingBottom: "3vh" }}>
                     <h1>Resultados de: '{input !== 'undefined' ? input : ""}'</h1>
                 </div>
+            </div>
+            <div style={{ marginBottom: "200px" }}>
                 <div style={{ display: "flex" }}>
                     <div className="wContainer-2">
                         <hr className="hr-1"></hr>

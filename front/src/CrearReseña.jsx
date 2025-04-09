@@ -23,6 +23,8 @@ const CrearReseña = () => {
     }
 
     console.log("Reseña guardada:", textoReseña);
+    console.log("liked:", liked);
+    console.log("starred:", starred);
     setError("");
     setMostrarFormulario(false);
     setTextoReseña("");

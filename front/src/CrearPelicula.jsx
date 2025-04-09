@@ -50,7 +50,7 @@ const CrearPelicula = ({ onClose }) => {
     if (Object.keys(nuevosErrores).length === 0) {
       const pelicula = { titulo, genero, duracion, anio, sinopsis, imagen };
       console.log("Película creada:", pelicula);
-      onClose();
+      // onClose();
     }
   };
 
