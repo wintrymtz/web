@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar2 from "./navbar";
-import "./Home.css";
+import "./css/Home.css";
 import "./css/DetallePelicula.css";
 import { useNavigate } from "react-router-dom";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
@@ -75,13 +75,13 @@ export default function DetallePelicula() {
                         <p><span className="label">Calificación:   </span> {renderStars(movie.rating)}</p>
                     </div>
                 </div>
-        
+
                 <div className="detalle-sinopsis">
                     <h2>Sinopsis:</h2>
                     <p>{movie.synopsis}</p>
                 </div>
 
-                
+
                 <div className="detalle-top">
                     <h3>Reseñas</h3>
 
@@ -110,9 +110,9 @@ export default function DetallePelicula() {
                     ))}
                 </div>
 
-               
+
             </div>
-            
+
         </div>
     );
 }

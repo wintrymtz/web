@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import "./Home.css"; // Importamos el CSS
+import "./css/Home.css"; // Importamos el CSS
 import "./css/usersList.css";
 import Navbar2 from "./navbar";
 import { useNavigate, useParams } from "react-router-dom";
