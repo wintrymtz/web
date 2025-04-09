@@ -185,3 +185,67 @@ h1 {
     font-weight: bold;
     margin-right: 100px;
 }
+
+
+
+
+
+
+
+.detalle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.star-filled {
+    color: rgb(136, 48, 236);
+    font-size: 24px;
+}
+
+.detalle-favorito .star-filled {
+    color: gold;
+    font-size: 45px;
+}
+
+.detalle-favorito .star-filled:hover {
+    color: rgb(209, 121, 21);
+    transform: scale(1.3);
+}
+
+.star-empty {
+    color: gray;
+    font-size: 24px;
+}
+
+.detalle-favorito .star-empty {
+    color: gray;
+    font-size: 45px;
+}
+
+.detalle-favorito .star-empty:hover {
+    color: rgb(66, 59, 59);
+    transform: scale(1.3);
+}
+
+.detalle-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.detalle-favorito, .detalle-editar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.detalle-editar {
+    font-size: 30px;
+    color: #555;
+}
+
+.detalle-editar:hover,
+.detalle-favorito:hover span {
+    transform: scale(1.3);
+}

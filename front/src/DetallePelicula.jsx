@@ -52,6 +52,7 @@ export default function DetallePelicula() {
     };
 
     const [likedReviews, setLikedReviews] = useState([false, false, false]);
+    const [favorite, setFavorite] = useState(false);
 
     const toggleLike = (index) => {
         const newLikes = [...likedReviews];
@@ -59,16 +60,32 @@ export default function DetallePelicula() {
         setLikedReviews(newLikes);
     };
 
+    const toggleFavorite = () => {
+        setFavorite(!favorite);
+    };
+
     return (
         <div className="home-container">
             <Navbar2 />
+
             <div className="detalle-container">
                 <div className="detalle-contenido">
                     <div className="detalle-imagen-wrapper">
                         <img src={movie.image} alt={movie.title} className="detalle-imagen" />
                     </div>
+
                     <div className="detalle-info">
-                        <h1>{movie.title}</h1>
+                        <div className="detalle-header">
+                            <h1>{movie.title}</h1>
+                            <div className="detalle-botones">
+                                <button onClick={toggleFavorite} className="detalle-favorito">
+                                    <span className={favorite ? "star-filled" : "star-empty"}>★</span>
+                                </button>
+                                <button onClick={() => nav("/movie-edit")} className="detalle-editar">
+                                    ✏️
+                                </button>
+                            </div>
+                        </div>
                         <p><span className="label">Género:   </span> {movie.genre}</p>
                         <p><span className="label">Duración:   </span> {movie.duration}</p>
                         <p><span className="label">Año:   </span> {movie.year}</p>
