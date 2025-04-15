@@ -5,9 +5,12 @@ import "./css/DetallePelicula.css";
 import CrearReseña from "./CrearReseña";
 import { useNavigate } from "react-router-dom";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { Button } from "react-bootstrap";
+import PopUp2 from "./PopUp2";
 
 export default function DetallePelicula() {
     const nav = useNavigate();
+    const [show, setShow] = useState(false);
 
     const movie = {
         title: "Avatar",
@@ -66,16 +69,28 @@ export default function DetallePelicula() {
         setFavorite(!favorite);
     };
 
+    function deleteMovie(id) {
+
+    }
+
     return (
         <div className="home-container">
             <Navbar2 />
+
+            <PopUp2
+                title='ADVERTENCIA'
+                text={`Seguro que quieres eliminar esta película?`}
+                show={show}
+                onClose={() => { setShow(false) }}
+                onAccept={() => { deleteMovie(1) }} >
+            </PopUp2>
+
 
             <div className="detalle-container">
                 <div className="detalle-contenido">
                     <div className="detalle-imagen-wrapper">
                         <img src={movie.image} alt={movie.title} className="detalle-imagen" />
                     </div>
-
                     <div className="detalle-info">
                         <div className="detalle-header">
                             <h1>{movie.title}</h1>
@@ -94,7 +109,9 @@ export default function DetallePelicula() {
                         <p><span className="label">Calificación:   </span> {renderStars(movie.rating)}</p>
                     </div>
                 </div>
-
+                <div style={{ display: "flex", justifyContent: "left", width: "100%", marginLeft: "30%" }}>
+                    <Button variant="danger" onClick={() => { setShow(true) }} style={{}}>Eliminar</Button>
+                </div>
                 <div className="detalle-sinopsis">
                     <h2>Sinopsis:</h2>
                     <p>{movie.synopsis}</p>
@@ -105,7 +122,7 @@ export default function DetallePelicula() {
                     <h3>Reseñas</h3>
 
                     <button className="detalle-btn" onClick={() => setMostrarPopup(true)}>
-                      Nueva reseña
+                        Nueva reseña
                     </button>
                 </div>
 

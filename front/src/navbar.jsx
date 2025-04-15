@@ -80,7 +80,7 @@ function Navbar2() {
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
-                    <a href={image === null ? "/register" : "/profile"}><img alt="profile-image" style={{ borderRadius: "50%", width: "50px", marginLeft: "50px" }} src={image === null ? "https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg" : `data:image/png;base64,${image}`}></img></a>
+                    <a href={image === null ? "/register" : "/profile"}><img alt="profile-image" style={{ borderRadius: "50%", width: "50px", marginLeft: "50px" }} src={image === null ? "https://i.pinimg.com/736x/3c/ae/07/3cae079ca0b9e55ec6bfc1b358c9b1e2.jpg" : `data:image/png;base64,${image}`}></img></a>
 
                 </div>
             </div>

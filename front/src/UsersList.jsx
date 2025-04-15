@@ -5,6 +5,7 @@ import Navbar2 from "./navbar";
 import "./css/usersList.css";
 import PopUp2 from "./PopUp2";
 import PopUp1 from "./PopUp1";
+import axios from "axios";
 
 function UsersList() {
     const [users, setUsers] = useState([]);
@@ -32,16 +33,28 @@ function UsersList() {
 
     function deleteUser(id) {
 
-        setUsers(users.filter(user => user.id !== id));
         //peticion al servidor
+        axios.delete(`http://localhost:3001/user/delete/${id}`)
+            .then((res) => {
+                console.log("(server)", res.data.msg);
+                setUsers(users.filter(user => user.userID !== id));
+            }).catch((err) => {
+                console.log('(error)', err.response.data.msg)
+            })
     }
 
     useEffect(() => {
-        dummy();
-    }, []);
+        requestGetUsers();
+    }, [users]);
 
-    function falseShow() {
-        console.log('uwu');
+    function requestGetUsers() {
+        axios.get("http://localhost:3001/user/list")
+            .then((res) => {
+                setUsers(res.data.users)
+                // console.log(res.data.users)
+            }).catch((err) => {
+                console.log('(error)', err.response.data.msg)
+            })
     }
 
     return (
@@ -70,12 +83,12 @@ function UsersList() {
                             </thead>
                             <tbody id="users-table">
                                 {users.map((user) => (
-                                    <tr className="wRow" key={user.id}>
-                                        <td style={{ textAlign: "center" }}>{user.id}</td>
-                                        <td>{user.user}</td>
-                                        <td>{user.name}</td>
+                                    <tr className="wRow" key={user.userID}>
+                                        <td style={{ textAlign: "center" }}>{user.userID}</td>
+                                        <td>{user.userUsername}</td>
+                                        <td>{user.userName}</td>
                                         <td className="wDelete">
-                                            <Button variant="danger" onClick={() => { handleDeleteUser(user.id); }}>Eliminar</Button>
+                                            <Button variant="danger" onClick={() => { handleDeleteUser(user.userID); }}>Eliminar</Button>
                                         </td>
                                     </tr>
                                 ))}

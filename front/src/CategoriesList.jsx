@@ -5,6 +5,7 @@ import Navbar2 from "./navbar";
 import "./css/usersList.css";
 import PopUp2 from "./PopUp2";
 import PopUp1 from "./PopUp1";
+import axios from "axios";
 
 function CategoriesList() {
     const [categories, setCategories] = useState([]);
@@ -65,9 +66,8 @@ function CategoriesList() {
 
         if (!validate()) return;
 
-        setWarn('Creada correctamente');
-        setShow2(true);
         //peticion para guardarla
+        requestCreateGenre(categoryName, categoryDesc);
     }
 
     function dummy() {
@@ -86,9 +86,43 @@ function CategoriesList() {
     }
 
     function deleteCategory(id) {
-
-        setCategories(categories.filter(user => user.id !== id));
         //peticion al servidor
+        axios.delete(`http://localhost:3001/genre/delete/${id}`)
+            .then((res) => {
+                console.log("(server, ok)", res.data.msg);
+                setCategories(categories.filter(category => category.genreID !== id));
+            }).catch((err) => {
+                console.log('(server, error)', err.response.data.msg)
+            })
+    }
+
+    function requestCreateGenre(name, description) {
+        axios.post(`http://localhost:3001/genre/create`, {
+            "genreName": name,
+            "genreDescription": description
+        })
+            .then((res) => {
+                console.log("(server, ok)", res.data.msg);
+                setWarn('Creada correctamente');
+                setShow2(true);
+                setCategoryName("");
+                setCategoryDesc("");
+
+            }).catch((err) => {
+                console.log('(server, error)', err.response.data.msg)
+                setWarn('Error, no se pudo realizar la acción');
+                setShow2(true);
+            })
+    }
+
+    function requestGetGenres() {
+        axios.get("http://localhost:3001/genre/list")
+            .then((res) => {
+                setCategories(res.data.genres)
+                // console.log(res.data.users)
+            }).catch((err) => {
+                console.log('(error)', err.response.data.msg)
+            })
     }
 
     useEffect(() => {
@@ -96,7 +130,7 @@ function CategoriesList() {
             setCategoryCreate(false);
             return;
         }
-        dummy();
+        requestGetGenres();
     }, [categoryCreate,]);
 
     return (
@@ -132,13 +166,13 @@ function CategoriesList() {
                                 </tr>
                             </thead>
                             <tbody id="users-table">
-                                {categories.map((user) => (
-                                    <tr className="wRow" key={user.id}>
-                                        <td style={{ textAlign: "center" }}>{user.id}</td>
-                                        <td>{user.category}</td>
-                                        <td>{user.desc}</td>
+                                {categories.map((category) => (
+                                    <tr className="wRow" key={category.genreID}>
+                                        <td style={{ textAlign: "center" }}>{category.genreID}</td>
+                                        <td>{category.genreName}</td>
+                                        <td>{category.descGenre}</td>
                                         <td className="wDelete">
-                                            <Button variant="danger" onClick={() => { handleDeleteUser(user.id); }}>Eliminar</Button>
+                                            <Button variant="danger" onClick={() => { handleDeleteUser(category.genreID); }}>Eliminar</Button>
                                         </td>
                                     </tr>
                                 ))}
@@ -151,11 +185,11 @@ function CategoriesList() {
                         <form style={{ width: "80%", marginBottom: "5vh" }} onSubmit={(e) => { createCategory(e) }}>
                             <div className="form-group wForm">
                                 <label for="exampleFormControlInput1">Nombre de la categoría</label>
-                                <input type="text" className="form-control" id="categoryNameInput" placeholder="terror..." onChange={(e) => handleCategoryName(e)} />
+                                <input value={categoryName} type="text" className="form-control" id="categoryNameInput" placeholder="terror..." onChange={(e) => handleCategoryName(e)} />
                             </div>
                             <div className="form-group wForm">
                                 <label for="exampleFormControlTextarea1">Descripción</label>
-                                <textarea className="form-control" id="categoryDescInput" rows="3" onChange={(e) => handleCategoryDesc(e)}></textarea>
+                                <textarea value={categoryDesc} className="form-control" id="categoryDescInput" rows="3" onChange={(e) => handleCategoryDesc(e)}></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary mb-2">Guardar</button>
                         </form>

@@ -4,6 +4,7 @@ import Navbar2 from "./navbar";
 import "./css/usersList.css";
 import PopUp1 from "./PopUp1";
 import Footer from "./Footer";
+import axios from "axios";
 
 function Profile() {
     const [user, setUser] = useState([]);
@@ -15,8 +16,32 @@ function Profile() {
 
     function dummy() {
         setUser(
-            { username: "wintry", firstName: "jaime", lastName: 'miau', email: 'asdsad@', image: localStorage.getItem('userPhoto') }
+            { userID: localStorage.getItem('userID'), userUsername: "wintry", userName: "jaime", userLastname: 'miau', email: 'asdsad@', photo: localStorage.getItem('userPhoto') }
         );
+    }
+
+    function requestGetUser(id) {
+        axios.get(`http://localhost:3001/user/${id}`)
+            .then((res) => {
+                setUser(res.data.user)
+                console.log('(server)', res.data.user)
+            }).catch((err) => {
+                console.log('(error)', err.response.data.msg)
+            })
+    }
+
+    function requestUpdateUser(formData) {
+        axios.patch("http://localhost:3001/user/update", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        }).then((res) => {
+            console.log("(server)", res.data.msg);
+            setWarn("Usuario actualizado correctamente");
+            setShow(true);
+        }).catch((err) => {
+            console.log("(server)", err.response.data.msg);
+            setWarn("Error al actualizar");
+            setShow(true);
+        });
     }
 
     const handleChange = (e) => {
@@ -39,13 +64,13 @@ function Profile() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const usernameRegex = /^\S+$/;
 
-        if (!user.firstName.trim() || !user.lastName.trim() || !user.email.trim() || !user.username.trim() || !user.image) {
+        if (!user.userName.trim() || !user.userLastname.trim() || !user.email.trim() || !user.userUsername.trim() || !user.photo) {
             setWarn("Todos los campos deben llenarse.");
             setShow(true);
             return false;
         }
 
-        if (!nameRegex.test(user.firstName) || !nameRegex.test(user.lastName)) {
+        if (!nameRegex.test(user.userName) || !nameRegex.test(user.userLastname)) {
             setWarn("Nombre inválido, los nombres y apellidos solo pueden contener letras y espacios.");
             setShow(true);
             return false;
@@ -57,7 +82,7 @@ function Profile() {
             return false;
         }
 
-        if (!usernameRegex.test(user.username)) {
+        if (!usernameRegex.test(user.userUsername)) {
             setWarn("El nombre de usuario no puede contener espacios");
             setShow(true);
             return false;
@@ -69,15 +94,26 @@ function Profile() {
     const update = () => {
 
         if (!validate()) return;
-        console.log(user);
 
+        const formData = new FormData();
+        formData.append('id', user.userID);
+        formData.append('username', user.userUsername);
+        formData.append('email', user.email);
+        formData.append('firstName', user.userName);
+        formData.append('lastName', user.userLastname);
+        formData.append('oldImage', user.photo)
+
+        if (user.image) {
+            formData.append('image', user.image);
+        } else formData.append('image', null);
         //peticion para update
-        setWarn('Datos actualizados correctamente');
-        setShow(true);
+        requestUpdateUser(formData);
     }
 
     useEffect(() => {
-        dummy();
+        // dummy();
+        requestGetUser(localStorage.getItem('userID'));
+
     }, []);
 
     useEffect(() => {
@@ -85,12 +121,9 @@ function Profile() {
             if (user.length < 1) {
                 return;
             }
-            document.getElementById('firstName').value = user.firstName;
-            document.getElementById('username').value = user.username;
-            document.getElementById('lastName').value = user.lastName;
-            document.getElementById('email').value = user.email;
-            console.log(user);
             setIsSet(true);
+
+            console.log(user);
         }
     }, [user]);
 
@@ -109,26 +142,26 @@ function Profile() {
                         <h1 style={{ marginBottom: "10px", paddingTop: "0px" }}>Perfil</h1>
                         <hr className="wLine-1"></hr>
                         <form onSubmit={(e) => { e.preventDefault() }}>
-                            <img id="image" alt="imagen de perfil" src={user.image === null ? "https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg" : `data:image/png;base64,${user.image}`} style={{ width: "200px", borderRadius: "50%", margin: "3vh" }}></img>
+                            <img id="image" alt="imagen de perfil" src={user.photo === null ? "https://i.pinimg.com/736x/c3/a0/37/c3a037cccfcb72122a41db7ac808e4c7.jpg" : `data:image/png;base64,${user.photo}`} style={{ width: "200px", borderRadius: "50%", margin: "3vh" }}></img>
                             <div className="input-group custom-file-upload" style={{ width: "50%", textAlign: "center" }}>
                                 <label htmlFor="imageInput">Imagen de perfil</label>
                                 <input type="file" className="custom-file-upload" id="imageInput" name="image" accept="image/*" onChange={handleImage} style={{ display: "none" }} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="nombre">Nombre(s)</label>
-                                <input type="text" id="firstName" name="firstName" value={user.firstName} onChange={handleChange} />
+                                <input value={user.userName} type="text" id="firstName" name="userName" onChange={handleChange} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="apellidos">Apellidos</label>
-                                <input type="text" id="lastName" name="lastName" value={user.lastName} onChange={handleChange} />
+                                <input value={user.userLastname} type="text" id="lastName" name="userLastname" onChange={handleChange} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="correo">Correo Electrónico</label>
-                                <input type="email" id="email" name="email" value={user.email} onChange={handleChange} />
+                                <input value={user.email} type="email" id="email" name="email" onChange={handleChange} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="usuario">Nombre de Usuario</label>
-                                <input type="text" id="username" name="username" value={user.username} onChange={handleChange} />
+                                <input value={user.userUsername} type="text" id="username" name="userUsername" onChange={handleChange} />
                             </div>
                             <div className="button-group">
                                 <button type="submit" className="accept-button" style={{ width: "50%", marginBottom: "5vh" }} onClick={update}>Aceptar</button>

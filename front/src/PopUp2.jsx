@@ -12,7 +12,7 @@ function PopUp2({ title, text, show, onClose, onAccept }) {
             </Modal.Header>
             <Modal.Body><p>{text}</p></Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onClose}>Okay</Button>
+                <Button variant="secondary" onClick={onClose}>Cancelar</Button>
                 <Button variant="danger" onClick={() => { onAccept(); onClose() }}>Eliminar</Button>
             </Modal.Footer>
         </Modal>

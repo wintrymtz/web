@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 
 const userRoute = require('./routes/User');
+const genreRoute = require('./routes/Genre');
 
 app.use(cors());
 app.use(express.json());
@@ -14,6 +15,7 @@ app.listen(3001,
 )
 
 app.use("/user", userRoute);
+app.use("/genre", genreRoute);
 
 
 // app.post("/login", (req, res) => {
