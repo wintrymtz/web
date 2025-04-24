@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const userRoute = require('./routes/User');
 const genreRoute = require('./routes/Genre');
+const moviesRoute = require('./routes/Movies');
+const reviewsRoute = require('./routes/Reviews');
 
 app.use(cors());
 app.use(express.json());
@@ -16,6 +18,8 @@ app.listen(3001,
 
 app.use("/user", userRoute);
 app.use("/genre", genreRoute);
+app.use("/movies", moviesRoute);
+app.use("/reviews", reviewsRoute);
 
 
 // app.post("/login", (req, res) => {
