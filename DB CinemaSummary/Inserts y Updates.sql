@@ -25,7 +25,7 @@ INSERT INTO GenreMovies (genreID, movieID) VALUES (5, 4);
 INSERT INTO GenreMovies (genreID, movieID) VALUES (3, 5);
 
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 1', 4, 1, 1);
-INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 2', 9, 1, 2);
+INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 2', 8, 1, 2);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 3', 8, 1, 3);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 4', 6, 2, 1);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 5', 6, 2, 2);
@@ -33,7 +33,7 @@ INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 6', 6,
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 7', 6, 2, 4);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 8', 6, 2, 5);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 9', 6, 3, 2);
-INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 10', 7, 3, 4);
+INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 10', 8, 3, 4);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 11', 2, 4, 4);
 INSERT INTO Reviews (descReview, rating, userID, movieID) VALUES ('Review 12', 10, 4, 5);
 

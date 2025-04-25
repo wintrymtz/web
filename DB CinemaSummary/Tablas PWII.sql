@@ -25,6 +25,7 @@ CREATE TABLE Movies (
     duration        INT NOT NULL,
     yearPremiere    INT NOT NULL,
     reviewNumber    INT DEFAULT 0,
+    ratingSum       INT DEFAULT 0,
     rating          INT DEFAULT 0
 );
 

@@ -44,6 +44,7 @@ const ResenasFavoritas = () => {
           <div key={review.reviewID} className="favorita-wrapper">
             <ResenaItem
               review={review}
+              isLiked={true}
               onClick={() => irADetalle(review.movieID)}
               onLikeClick={() => setDeleteReview(review.reviewID)}
             />

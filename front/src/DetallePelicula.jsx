@@ -148,33 +148,36 @@ export default function DetallePelicula() {
                     <div className="detalle-reseñas">
                         {Array.isArray(reviews) && reviews.map((review, index) => {
                             const isFav = Array.isArray(favReviewIDs) && favReviewIDs.includes(review.reviewID);
+                            const iconClass = isFav ? "like-activo" : "like-inactivo";
                         
                             return (
                                 <ResenaItem
-                                    key={index}
-                                    review={{
-                                        user: review.user,
-                                        image: review.image,
-                                        review: review.review,
-                                        rating: review.rating
-                                    }}
-                                    onClick={() => {}}
-                                    onLikeClick={async () => {
-                                        try {
-                                            if (isFav) {
-                                                await axios.delete(`http://localhost:3001/userreviews/favReviewsDelete/${userID}/${review.reviewID}`);
-                                                setFavReviewIDs(favReviewIDs.filter(id => id !== review.reviewID));
-                                            } else {
-                                                await axios.post("http://localhost:3001/userreviews/favReviewsCreate", {
-                                                    userID,
-                                                    reviewID: review.reviewID
-                                                });
-                                                setFavReviewIDs([...favReviewIDs, review.reviewID]);
-                                            }
-                                        } catch (err) {
-                                            console.error("Error al actualizar reseña favorita:", err);
-                                        }
-                                    }}
+                                  key={index}
+                                  review={{
+                                    reviewID: review.reviewID,
+                                    user: review.user,
+                                    image: review.image,
+                                    review: review.review,
+                                    rating: review.rating
+                                  }}
+                                  isLiked={isFav}
+                                  onClick={() => {}}
+                                  onLikeClick={async () => {
+                                    try {
+                                      if (isFav) {
+                                        await axios.delete(`http://localhost:3001/userreviews/favReviewsDelete/${userID}/${review.reviewID}`);
+                                        setFavReviewIDs(favReviewIDs.filter(id => id !== review.reviewID));
+                                      } else {
+                                        await axios.post("http://localhost:3001/userreviews/favReviewsCreate", {
+                                          userID,
+                                          reviewID: review.reviewID
+                                        });
+                                        setFavReviewIDs([...favReviewIDs, review.reviewID]);
+                                      }
+                                    } catch (err) {
+                                      console.error("Error al actualizar reseña favorita:", err);
+                                    }
+                                  }}
                                 />
                             );
                         })}

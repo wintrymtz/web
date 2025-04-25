@@ -1,8 +1,8 @@
 import React from "react";
-import { FaThumbsUp, FaStar } from "react-icons/fa";
+import { FaThumbsUp, FaRegThumbsUp, FaStar } from "react-icons/fa";
 import "./css/ResenasFavoritas.css";
 
-const ResenaItem = ({ review, onClick, onLikeClick }) => {
+const ResenaItem = ({ review, onClick, onLikeClick, isLiked }) => {
   return (
     <>
       <br></br>
@@ -25,7 +25,7 @@ const ResenaItem = ({ review, onClick, onLikeClick }) => {
         </div>
 
         <button className="favorita-star" onClick={onLikeClick}>
-          <FaThumbsUp size={50} />
+          {isLiked ? <FaThumbsUp size={50} /> : <FaRegThumbsUp size={50} />}
         </button>
       </div>
     </>

@@ -175,6 +175,22 @@ DELIMITER ;
 
 
 
+-- TRIGGER para actualizar la calificación de la pelicula cada que se crea una nueva Reseña
+DELIMITER //
+CREATE TRIGGER TRG_UPDATE_NewRating
+AFTER INSERT ON Reviews
+FOR EACH ROW
+BEGIN
+    -- Actualizar reviewNumber y ratingSum
+    UPDATE Movies
+    SET 
+        reviewNumber = reviewNumber + 1,
+        ratingSum = ratingSum + NEW.rating,
+        rating = ratingSum / reviewNumber
+    WHERE movieID = NEW.movieID;
+END //
+DELIMITER ;
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- --------------------------- STORED PROCEDURES PARA LAS REVIEWS ------------------------------------------------------
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -353,3 +369,6 @@ CALL SP_GET_UserFavReviews(2);
 CALL SP_GET_MovieByID(3);
 CALL SP_GET_ReviewsByMovieID(2);
 CALL SP_GET_FavReviewsIDS(2);
+
+DROP TRIGGER IF EXISTS TRG_UPDATE_NewRating;
+
