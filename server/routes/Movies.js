@@ -22,24 +22,6 @@ router.get("/favMoviesList/:userId", (req, res) => {
 });
 
 
-// Eliminar una película favorita
-router.delete("/favMoviesDelete/:userId/:movieId", (req, res) => {
-  const { userId, movieId } = req.params;
-
-  db.query("CALL SP_DELETE_UserFavoriteMovie(?, ?)", [userId, movieId], (err, result) => {
-      if (err) {
-          console.log(err);
-          return res.status(500).json({ msg: "Error al eliminar película favorita" });
-      }
-
-      if (result.affectedRows > 0) {
-          res.status(200).json({ msg: "Película eliminada de favoritos correctamente" });
-      } else {
-          res.status(404).json({ msg: "Película no encontrada en favoritos" });
-      }
-  });
-});
-
 
 // Obtener información de una película
 router.get("/movieInfo/:movieID", (req, res) => {
@@ -55,6 +37,39 @@ router.get("/movieInfo/:movieID", (req, res) => {
         res.status(200).json(movie);
     });
 });
+
+
+// Actualizar película
+router.put("/updateMovie/:id", (req, res) => {
+    const { movieName, synopsis, poster, duration, yearPremiere, genreName } = req.body;
+    const id = req.params.id;
+  
+    db.query("CALL SP_UPDATE_Movie(?, ?, ?, ?, ?, ?, ?)",
+      [id, movieName, synopsis, poster, duration, yearPremiere, genreName],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ msg: "Error al actualizar la película" });
+        }
+        res.status(200).send("Película actualizada correctamente");
+      }
+    );
+});
+
+
+// Eliminar película
+router.delete("/deleteMovie/:id", (req, res) => {
+    const id = req.params.id;
+  
+    db.query("CALL SP_DELETE_Movie(?)", [id], (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ msg: "Error al eliminar la película" });
+      }
+      res.status(200).send("Película eliminada correctamente");
+    });
+});
+
 
 
 module.exports = router;

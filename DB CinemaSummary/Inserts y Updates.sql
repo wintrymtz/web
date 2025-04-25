@@ -1,12 +1,10 @@
 USE CinemaSum;
 
-
-
 CALL SP_USER_RegisterUser('Wintry', 'José', 'Martinez', 'jose.delosrios@gmail.com1', '123a', 'ffff');
 CALL SP_USER_RegisterUser('Memo', 'Guillermo', 'Morin', 'memorandum@gmail.com', '123b', 'ffff');
 CALL SP_USER_RegisterUser('Aze', 'Azeneth', 'Contreras', 'aze@gmail.com', '123c', 'ffff');
 CALL SP_USER_RegisterUser('Roger', 'Aldo', 'Zapata', 'roger@gmail.com', '123d', 'ffff');
-CALL SP_USER_RegisterUser('Null', 'Uriel', 'Guerrero', 'rypat@gmail.com', '123e', 'ffff');
+CALL SP_USER_RegisterUser('Null', 'Uriel', 'Guerrero', 'ryupat@gmail.com', '123e', 'ffff');
 
 INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Avatar', 'Humanos exploran la isla de Pandora', 150, 2010, 8, 'fff');
 INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Intensamente 2', 'Nuevas emociones secuestran la mente de Riley', 109, 2024, 6, 'fff');

@@ -1,44 +1,78 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar2 from "./navbar";
 import { Modal, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/CrearPelicula.css";
+import axios from "axios";
 
 const EditarPeliculas = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const datosIniciales = {
-    titulo: "Avatar",
-    genero: "Ciencia Ficción",
-    duracion: "162",
-    anio: "2009",
-    sinopsis:
-      "En un exuberante planeta llamado Pandora, un ex-marine parapléjico se embarca en una misión única, pero pronto se ve atrapado entre seguir órdenes y proteger el mundo que siente como su hogar.",
-    imagen:
-      "https://moviepostermexico.com/cdn/shop/products/AVATAR1.jpg?v=1604506515",
-  };
-
-  const [titulo, setTitulo] = useState(datosIniciales.titulo);
-  const [genero, setGenero] = useState(datosIniciales.genero);
-  const [duracion, setDuracion] = useState(datosIniciales.duracion);
-  const [anio, setAnio] = useState(datosIniciales.anio);
-  const [sinopsis, setSinopsis] = useState(datosIniciales.sinopsis);
-  const [imagen, setImagen] = useState(datosIniciales.imagen);
+  const [titulo, setTitulo] = useState("");
+  const [genero, setGenero] = useState("");
+  const [duracion, setDuracion] = useState("");
+  const [anio, setAnio] = useState("");
+  const [sinopsis, setSinopsis] = useState("");
+  const [imagen, setImagen] = useState("");
+  const [generosDisponibles, setGenerosDisponibles] = useState([]);
 
   const [errores, setErrores] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [showRedirect, setShowRedirect] = useState(false);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
+  const obtenerIdDeURL = () => {
+    const params = new URLSearchParams(location.search);
+    return params.get("id");
+  };
+
+  useEffect(() => {
+    const id = obtenerIdDeURL();
+
+    const fetchData = async () => {
+      try {
+        const [peliculaRes, generosRes] = await Promise.all([
+          axios.get(`http://localhost:3001/movies/movieInfo/${id}`),
+          axios.get(`http://localhost:3001/genre/list`)
+        ]);
+
+        const pelicula = peliculaRes.data;
+        const generos = generosRes.data.genres;
+
+        setTitulo(pelicula.movieName);
+        setGenero(pelicula.genreName);
+        setDuracion(pelicula.duration.toString());
+        setAnio(pelicula.yearPremiere.toString());
+        setSinopsis(pelicula.synopsis);
+        setImagen(pelicula.poster);
+        setGenerosDisponibles(generos.map(g => g.genreName));
+
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    const reader = new FileReader();
+  
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      const base64ImageOnly = base64String.split(',')[1]; 
+      setImagen(base64ImageOnly); 
+    };
+  
     if (file) {
-      setImagen(URL.createObjectURL(file));
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const nuevosErrores = {};
 
     if (!titulo.trim()) {
@@ -62,26 +96,38 @@ const EditarPeliculas = () => {
     setErrores(nuevosErrores);
 
     if (Object.keys(nuevosErrores).length === 0) {
-      setShowPopup(true);
-      setShowRedirect(true); // señal para redireccionar tras cerrar
+      try {
+        const id = obtenerIdDeURL();
+        await axios.put(`http://localhost:3001/movies/updateMovie/${id}`, {
+          movieName: titulo,
+          genreName: genero,
+          duration: parseInt(duracion),
+          yearPremiere: parseInt(anio),
+          synopsis: sinopsis,
+          poster: imagen
+        });
+        setShowPopup(true);
+      } catch (error) {
+        console.error("Error al actualizar película:", error);
+      }
+      
     }
   };
 
   const handleCancelar = () => {
-    setTitulo(datosIniciales.titulo);
-    setGenero(datosIniciales.genero);
-    setDuracion(datosIniciales.duracion);
-    setAnio(datosIniciales.anio);
-    setSinopsis(datosIniciales.sinopsis);
-    setImagen(datosIniciales.imagen);
     setEditMode(false);
-    setErrores({});
+    //Recargamos para tener datos de defailt
+    window.location.reload();
   };
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
-    if (showRedirect) {
+  const handleEliminar = async () => {
+    try {
+      const id = obtenerIdDeURL();
+      await axios.delete(`http://localhost:3001/movies/deleteMovie/${id}`);
+      setShowConfirmDelete(false);
       navigate("/Home");
+    } catch (error) {
+      console.error("Error al eliminar película:", error);
     }
   };
 
@@ -90,80 +136,65 @@ const EditarPeliculas = () => {
       <Navbar2 />
 
       <div className="crear-pelicula">
+        
         <h2>Editar Película</h2>
 
+        {/* --------Imagen--------- */}
         <label className="image-upload">
           <input type="file" accept="image/*" onChange={handleImageChange} disabled={!editMode} />
           <div className="image-preview">
-            {imagen ? <img src={imagen} alt="Preview" /> : <span>📷 Agregar Imagen</span>}
+            {imagen ? <img src={`data:image/png;base64,${imagen}`} alt="Preview" /> : <span>📷 Agregar Imagen</span>}
           </div>
         </label>
         {errores.imagen && <p className="error">{errores.imagen}</p>}
 
+
+        {/* --------Titulo--------- */}
         <div className="input-con-contador">
-          <input
-            type="text"
-            placeholder="Título"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            disabled={!editMode}
-            className={!editMode ? "disabled-input" : ""}
-          />
+          <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
           <div className="contador">{titulo.length}/40</div>
         </div>
         {errores.titulo && <p className="error">{errores.titulo}</p>}
 
-        <select
-          value={genero}
-          onChange={(e) => setGenero(e.target.value)}
-          disabled={!editMode}
-          className={!editMode ? "disabled-input" : ""}
-        >
+
+        {/* --------Género--------- */}
+        <select value={genero} onChange={(e) => setGenero(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}>
           <option value="">Seleccionar Género</option>
-          <option value="Acción">Acción</option>
-          <option value="Comedia">Comedia</option>
-          <option value="Drama">Drama</option>
-          <option value="Terror">Terror</option>
-          <option value="Ciencia Ficción">Ciencia Ficción</option>
+          {generosDisponibles.map((g, idx) => (
+            <option key={idx} value={g}>{g}</option>
+          ))}
         </select>
         {errores.genero && <p className="error">{errores.genero}</p>}
 
-        <input
-          type="text"
-          placeholder="Duración (minutos)"
-          value={duracion}
-          onChange={(e) => setDuracion(e.target.value)}
-          disabled={!editMode}
-          className={!editMode ? "disabled-input" : ""}
-        />
+
+        {/* --------Duracion--------- */}
+        <input type="text" placeholder="Duración (minutos)" value={duracion} onChange={(e) => setDuracion(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
         {errores.duracion && <p className="error">{errores.duracion}</p>}
 
-        <input
-          type="text"
-          placeholder="Año"
-          value={anio}
-          onChange={(e) => setAnio(e.target.value)}
-          disabled={!editMode}
-          className={!editMode ? "disabled-input" : ""}
-        />
+
+        {/* --------Año--------- */}
+        <input type="text" placeholder="Año de estreno" value={anio} onChange={(e) => setAnio(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
         {errores.anio && <p className="error">{errores.anio}</p>}
 
-        <textarea
-          placeholder="Sinopsis"
-          value={sinopsis}
-          onChange={(e) => setSinopsis(e.target.value)}
-          disabled={!editMode}
-          className={!editMode ? "disabled-input" : ""}
-        />
+
+        {/* --------Sinopsis--------- */}
+        <textarea placeholder="Sinopsis" value={sinopsis} onChange={(e) => setSinopsis(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
         {errores.sinopsis && <p className="error">{errores.sinopsis}</p>}
 
+
+        {/* --------Botones--------- */}
         <div className="buttons">
           <button className="editar" onClick={() => setEditMode(true)}>Editar</button>
           <button className="cancelar" onClick={handleCancelar} disabled={!editMode}>Cancelar</button>
           <button className="aceptar" onClick={handleSubmit} disabled={!editMode}>Aceptar</button>
-        </div>
+        </div>        
       </div>
 
+      <br></br><br></br>
+      <button className="cancelar" onClick={() => setShowConfirmDelete(true)}>Eliminar Pelicula</button>
+
+
+      {/* --------Pop Up de confirmación de actualización--------- */}
       <Modal show={showPopup} onHide={() => setShowPopup(false)} centered>
         <div className="modal-content custom-modal">
           <Modal.Body className="text-center">
@@ -172,6 +203,19 @@ const EditarPeliculas = () => {
           </Modal.Body>
         </div>
       </Modal>
+
+
+      {/* --------Pop Up de confirmación de eliminación--------- */}
+      <Modal show={showConfirmDelete} onHide={() => setShowConfirmDelete(false)} centered>
+        <div className="modal-content custom-modal">
+          <Modal.Body className="text-center">
+            <p>¿Estás seguro de que deseas eliminar esta película?</p>
+            <Button variant="danger" onClick={handleEliminar}>Eliminar</Button>
+            <Button variant="secondary" onClick={() => setShowConfirmDelete(false)}>Cancelar</Button>
+          </Modal.Body>
+        </div>
+      </Modal>
+
     </div>
   );
 };

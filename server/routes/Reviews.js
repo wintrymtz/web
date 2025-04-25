@@ -3,22 +3,23 @@ const router = express.Router();
 const db = require('../Database');
 
 
+// Crear una nueva reseña
+router.post("/createReview", (req, res) => {
+    const { descReview, rating, userID, movieID } = req.body;
+
+    db.query("CALL SP_CREATE_Review(?, ?, ?, ?)", [descReview, rating, userID, movieID], (err) => {
+        if (err) return res.status(500).send(err);
+        res.sendStatus(201);
+    });
+});
+
+
 // Obtener reseñas favoritas de un usuario
 router.get("/favReviewsList/:userID", (req, res) => {
     const { userID } = req.params;
     db.query("CALL SP_GET_UserFavReviews(?)", [userID], (err, result) => {
         if (err) return res.status(500).send(err);
         res.json(result[0]);
-    });
-});
-
-
-// Eliminar una reseña favorita
-router.delete("/favReviewsDelete/:userID/:reviewID", (req, res) => {
-    const { userID, reviewID } = req.params;
-    db.query("CALL SP_DELETE_UserFavReviews(?, ?)", [userID, reviewID], (err) => {
-        if (err) return res.status(500).send(err);
-        res.sendStatus(200);
     });
 });
 

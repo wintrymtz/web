@@ -6,6 +6,8 @@ const userRoute = require('./routes/User');
 const genreRoute = require('./routes/Genre');
 const moviesRoute = require('./routes/Movies');
 const reviewsRoute = require('./routes/Reviews');
+const userMoviesRoute = require('./routes/UserMovies');
+const userReviewsRoute = require('./routes/UserReviews');
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +22,8 @@ app.use("/user", userRoute);
 app.use("/genre", genreRoute);
 app.use("/movies", moviesRoute);
 app.use("/reviews", reviewsRoute);
+app.use("/usermovies", userMoviesRoute);
+app.use("/userreviews", userReviewsRoute);
 
 
 // app.post("/login", (req, res) => {

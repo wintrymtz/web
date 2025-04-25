@@ -21,7 +21,7 @@ const ResenasFavoritas = () => {
 
   const handleEliminar = (reviewID) => {
     axios
-      .delete(`http://localhost:3001/reviews/favReviewsDelete/${userID}/${reviewID}`)
+      .delete(`http://localhost:3001/userreviews/favReviewsDelete/${userID}/${reviewID}`)
       .then(() => {
         setResenas(resenas.filter((r) => r.reviewID !== reviewID));
         setDeleteReview(null);

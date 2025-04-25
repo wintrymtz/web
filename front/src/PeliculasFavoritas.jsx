@@ -35,7 +35,7 @@ const PeliculasFavoritas = () => {
         const userID = parseInt(localStorage.getItem("userID"));
     
         try {
-            await axios.delete(`http://localhost:3001/movies/favMoviesDelete/${userID}/${movieID}`);
+            await axios.delete(`http://localhost:3001/usermovies/favMoviesDelete/${userID}/${movieID}`);
             
             // Actualiza la lista local sin la película eliminada
             setFavorites(prev => prev.filter(p => p.movieID !== movieID));

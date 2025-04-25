@@ -1,30 +1,41 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import "./css/CrearReseña.css";
+import axios from "axios";
 
-const CrearReseña = ({ onClose }) => {
+const CrearReseña = ({ onClose, movieID, onReviewSaved }) => {
   const [textoReseña, setTextoReseña] = useState("");
   const [calificacion, setCalificacion] = useState(0);
   const [hover, setHover] = useState(0);
   const [error, setError] = useState("");
 
-  const handleGuardar = () => {
+  const handleGuardar = async () => {
     if (textoReseña.trim().length < 15) {
-      setError("La reseña debe tener al menos 15 caracteres.");
-      return;
-    }
-    if (calificacion === 0) {
-      setError("Debes seleccionar una calificación.");
+      setError("La reseña debe tener al menos 15 carácteres.");
       return;
     }
 
-    console.log("Reseña:", textoReseña);
-    console.log("Calificación:", calificacion);
+    const userID = parseInt(localStorage.getItem("userID"));
 
-    setError("");
-    setTextoReseña("");
-    setCalificacion(0);
-    onClose(); // Cierra el popup
+    try {
+      await axios.post("http://localhost:3001/reviews/createReview", {
+        descReview: textoReseña,
+        rating: (calificacion*2),
+        userID,
+        movieID
+      });
+
+      onReviewSaved(); 
+      onClose();       
+    } catch (error) {
+      console.error("Error al guardar la reseña:", error);
+      setError("Ocurrió un error al guardar la reseña.");
+    }
+    
+    // setError("");
+    // setTextoReseña("");
+    // setCalificacion(0);
+    // onClose();
   };
 
   return (
@@ -70,46 +81,3 @@ const CrearReseña = ({ onClose }) => {
 };
 
 export default CrearReseña;
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-// const CrearReseña = () => {
-//     const [liked, setLiked] = useState(false);
-//     const [starred, setStarred] = useState(false);
-  
-//     return (
-//       <div className="crear-reseña-container">
-//         <h2>Reseñas</h2>
-//         <button className="nueva-reseña-btn">Nueva reseña</button>
-//         <div className="reseña-card">
-//           <div className="avatar"></div>
-//           <div className="reseña-content"></div>
-//           <div className="icons">
-//             <span 
-//               className={`icon ${starred ? "active" : ""}`} 
-//               onClick={() => setStarred(!starred)}
-//             >
-//               ⭐
-//             </span>
-//             <span 
-//               className={`icon ${liked ? "active" : ""}`} 
-//               onClick={() => setLiked(!liked)}
-//             >
-//               👍
-//             </span>
-//           </div>
-//         </div>
-//         <div className="divider">
-//           <hr />
-//           <div className="arrow">▼</div>
-//           <hr />
-//         </div>
-//         <div className="respuesta">
-//           <div className="avatar pequeño"></div>
-//           <div className="respuesta-content"></div>
-//         </div>
-//       </div>
-//     );
-//   };
-  
-//   export default CrearReseña;

@@ -15,15 +15,17 @@ export default function DetallePelicula() {
     const nav = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const movieID = params.get("id");
 
-    const [show, setShow] = useState(false);
+    const movieID = params.get("id");
+    const userID = parseInt(localStorage.getItem("userID"));
+    const userType = parseInt(localStorage.getItem("userType"));
+    
     const [movie, setMovie] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [mostrarPopup, setMostrarPopup] = useState(false);
     const [favorite, setFavorite] = useState(false);
+    const [favReviewIDs, setFavReviewIDs] = useState([]);
 
-    const userType = parseInt(localStorage.getItem("userType"));
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -44,8 +46,20 @@ export default function DetallePelicula() {
             }
         };
 
+        const fetchFavReviews = async () => {
+            try {
+                const res = await axios.get(`http://localhost:3001/userreviews/favReviewsId/${userID}`);
+                const ids = res.data.map(r => r.reviewID);
+                setFavReviewIDs(ids);
+            } catch (err) {
+                console.error("Error al cargar reseñas favoritas:", err);
+            }
+        };
+
         fetchMovie();
         fetchReviews();
+        fetchFavReviews();
+        checkFavorite();
     }, [movieID]);
 
     const renderStars = (count) => {
@@ -58,39 +72,49 @@ export default function DetallePelicula() {
         return stars;
     };
 
-    const toggleFavorite = () => {
-        setFavorite(!favorite);
-    };
-
-    const deleteMovie = async (id) => {
+    const toggleFavorite = async () => {
         try {
-            await axios.delete(`http://localhost:3001/movies/delete/${id}`);
-            nav("/Home");
-        } catch (error) {
-            console.error("Error al eliminar película:", error);
+            if (!favorite) {
+                await axios.post("http://localhost:3001/usermovies/addFavorite", {
+                    userID,
+                    movieID
+                });
+            } else {
+                await axios.delete(`http://localhost:3001/usermovies/favMoviesDelete/${userID}/${movieID}`);
+            }
+    
+            
+            const res = await axios.get(`http://localhost:3001/usermovies/isFavorite/${userID}/${movieID}`);
+            setFavorite(res.data.isFavorite);
+        } catch (err) {
+            console.error("Error al actualizar favoritos:", err);
         }
     };
+
+    const checkFavorite = async () => {
+        try {
+            const res = await axios.get(`http://localhost:3001/usermovies/isFavorite/${userID}/${movieID}`);
+            setFavorite(res.data.isFavorite);
+        } catch (err) {
+            console.error("Error al verificar favoritos:", err);
+        }
+    };
+
+
 
     return (
         <div className="home-container">
             <Navbar2 />
-            <PopUp2
-                title='ADVERTENCIA'
-                text={`¿Seguro que quieres eliminar esta película?`}
-                show={show}
-                onClose={() => { setShow(false) }}
-                onAccept={() => { deleteMovie(movie.movieID) }}
-            />
-
+            
             {movie && (
                 <div className="detalle-container">
                     <div className="detalle-contenido">
                         <div className="detalle-imagen-wrapper">
-                            <img src={`data:image/png;base64,${movie.image}`} alt={movie.title} className="detalle-imagen" />
+                            <img src={`data:image/png;base64,${movie.poster}`} alt={movie.movieName} className="detalle-imagen" />
                         </div>
                         <div className="detalle-info">
                             <div className="detalle-header">
-                                <h1>{movie.title}</h1>
+                                <h1>{movie.movieName}</h1>
                                 <div className="detalle-botones">
                                     <button onClick={toggleFavorite} className="detalle-favorito">
                                         <span className={favorite ? "star-filled" : "star-empty"}>★</span>
@@ -109,12 +133,6 @@ export default function DetallePelicula() {
                         </div>
                     </div>
 
-                    {userType !== 0 && (
-                        <div style={{ display: "flex", justifyContent: "left", width: "100%", marginLeft: "30%" }}>
-                            <Button variant="danger" onClick={() => setShow(true)}>Eliminar</Button>
-                        </div>
-                    )}
-
                     <div className="detalle-sinopsis">
                         <h2>Sinopsis:</h2>
                         <p>{movie.synopsis}</p>
@@ -128,25 +146,51 @@ export default function DetallePelicula() {
                     </div>
 
                     <div className="detalle-reseñas">
-                        {reviews.map((review, index) => (
-                            <ResenaItem
-                                key={index}
-                                review={{
-                                    user: review.user,
-                                    image: review.image,
-                                    review: review.review,
-                                    rating: review.rating
-                                }}
-                                onClick={() => {}}
-                                onLikeClick={() => {}}
-                            />
-                            
-                        ))}
+                        {Array.isArray(reviews) && reviews.map((review, index) => {
+                            const isFav = Array.isArray(favReviewIDs) && favReviewIDs.includes(review.reviewID);
+                        
+                            return (
+                                <ResenaItem
+                                    key={index}
+                                    review={{
+                                        user: review.user,
+                                        image: review.image,
+                                        review: review.review,
+                                        rating: review.rating
+                                    }}
+                                    onClick={() => {}}
+                                    onLikeClick={async () => {
+                                        try {
+                                            if (isFav) {
+                                                await axios.delete(`http://localhost:3001/userreviews/favReviewsDelete/${userID}/${review.reviewID}`);
+                                                setFavReviewIDs(favReviewIDs.filter(id => id !== review.reviewID));
+                                            } else {
+                                                await axios.post("http://localhost:3001/userreviews/favReviewsCreate", {
+                                                    userID,
+                                                    reviewID: review.reviewID
+                                                });
+                                                setFavReviewIDs([...favReviewIDs, review.reviewID]);
+                                            }
+                                        } catch (err) {
+                                            console.error("Error al actualizar reseña favorita:", err);
+                                        }
+                                    }}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             )}
 
-            {mostrarPopup && <CrearReseña onClose={() => setMostrarPopup(false)} />}
+            {mostrarPopup && (
+              <CrearReseña onClose={() => setMostrarPopup(false)} movieID={movieID} onReviewSaved={() => {
+                  
+                  axios.get(`http://localhost:3001/reviews/movieReviews/${movieID}`)
+                    .then((res) => setReviews(res.data))
+                    .catch((err) => console.error("Error al recargar reseñas:", err));
+                }}/>
+            )}
+
         </div>
     );
 }
