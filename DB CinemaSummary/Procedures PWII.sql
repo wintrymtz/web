@@ -341,11 +341,71 @@ BEGIN
 END //
 DELIMITER ;
 
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- -------------------- STORED PROCEDURES PARA LA BÚSQUEDA -------------------------------------
+-- ---------------------------------------------------------------------------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE SP_SELECT_Search(
+IN p_search VARCHAR(200)
+)
+BEGIN
+    SELECT movieID, movieName, poster, yearPremiere, rating FROM Movies WHERE movieName LIKE CONCAT('%' ,p_search ,'%');
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SP_SELECT_GenresByMovie(
+    IN p_movieID INT
+)
+BEGIN
+    SELECT 
+        G.genreID,
+        G.genreName,
+        G.descGenre
+    FROM 
+        GenreMovies GM
+    INNER JOIN Genres G ON GM.genreID = G.genreID
+    WHERE 
+        GM.movieID = p_movieID;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SP_SELECT_Search2(
+    IN p_search VARCHAR(200)
+)
+BEGIN
+    SELECT 
+        M.movieID,
+        M.movieName,
+        M.poster,
+        M.yearPremiere,
+        M.rating,
+        M.reviewNumber,
+        GROUP_CONCAT(G.genreName SEPARATOR ', ') AS genres
+    FROM 
+        Movies M
+    LEFT JOIN GenreMovies GM ON M.movieID = GM.movieID
+    LEFT JOIN Genres G ON GM.genreID = G.genreID
+    WHERE 
+        M.movieName LIKE CONCAT('%', p_search, '%')
+    GROUP BY 
+        M.movieID;
+END //
+DELIMITER ;
+
+
+
 -- --------------------------------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------------------------------
 -- Calls y demas
+
+CALL SP_SELECT_GenresByMovie(5);
+CALL SP_SELECT_Search2("a");
+
 SELECT * FROM USERS;
 SELECT * FROM MOVIES;
 SELECT * FROM REVIEWS;
@@ -370,5 +430,23 @@ CALL SP_GET_MovieByID(3);
 CALL SP_GET_ReviewsByMovieID(2);
 CALL SP_GET_FavReviewsIDS(2);
 
-DROP TRIGGER IF EXISTS TRG_UPDATE_NewRating;
+INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Avatar', 'Humanos exploran la isla de Pandora', 150, 2010, 8, 'fff');
+INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Intensamente 2', 'Nuevas emociones secuestran la mente de Riley', 109, 2024, 6, 'fff');
+INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Anabelle 3', 'Pelicula de terror donde una muñeca se mueve', 95, 2022, 4, 'fff');
+INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Avatar 2', 'La secuela de la primera.', 180, 2023, 10, 'fff');
+INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, rating, poster) VALUES ('Avengers: Infinity War', 'Thanos busca las gemas del infinito', 160, 2018, 9, 'fff');
 
+CALL SP_CREATE_CreateGenre('Terror', 'descripcion de mi categoria de terror');
+CALL SP_CREATE_CreateGenre('Comedia', '2descripcion de mi categoria de comedia');
+CALL SP_CREATE_CreateGenre('Acción', '3descripcion de mi categoria de acción');
+CALL SP_CREATE_CreateGenre('Ciencia Ficción', '4descripcion de mi categoria de ciencia ficción');
+CALL SP_CREATE_CreateGenre('Aventura', '5descripcion de mi categoria de aventura');
+
+INSERT INTO GenreMovies (genreID, movieID) VALUES (4, 1);
+INSERT INTO GenreMovies (genreID, movieID) VALUES (3, 1);
+INSERT INTO GenreMovies (genreID, movieID) VALUES (2, 2);
+INSERT INTO GenreMovies (genreID, movieID) VALUES (1, 3);
+INSERT INTO GenreMovies (genreID, movieID) VALUES (5, 4);
+INSERT INTO GenreMovies (genreID, movieID) VALUES (3, 5);
+
+DROP TRIGGER IF EXISTS TRG_UPDATE_NewRating;

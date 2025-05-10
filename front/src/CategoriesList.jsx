@@ -93,6 +93,11 @@ function CategoriesList() {
                 setCategories(categories.filter(category => category.genreID !== id));
             }).catch((err) => {
                 console.log('(server, error)', err.response.data.msg)
+                if (err.response.data.msg === "fk") {
+                    setWarn('Error, no se pudo realizar la acción, más de una película está asociada a ese género');
+                    setShow2(true);
+                    setCategories(categories);
+                }
             })
     }
 

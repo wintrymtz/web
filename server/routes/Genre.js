@@ -22,8 +22,13 @@ router.post("/create", (req, res) => {
 
 router.delete("/delete/:id", (req, res) => {
     let genreId = req.params.id;
-
     db.query("CALL SP_DELETE_Genre(?)", [genreId], (err, resp) => {
+        if (err) {
+            if (err.code === "ER_ROW_IS_REFERENCED_2") {
+                return res.status(500).json({ msg: "fk" });
+            }
+            return res.status(500).json({ msg: "ERROR DEL SERVIDOR" });
+        }
         if (resp.affectedRows == 1) {
             res.status(200).json({ "msg": "Género eliminado correctamente" });
         } else if (resp.affectedRows > 1) {
