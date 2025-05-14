@@ -4,6 +4,31 @@ const archivo = require('../multerConfig');
 const router = express.Router();
 
 
+//Crear película
+router.post("/create", archivo.single('image'), (req, res) => {
+  const movieName = req.body.movieName;
+  const duration = req.body.duration;
+  const year = req.body.movieName;
+  const synopsis = req.body.movieName;
+  const image64 = req.file.buffer.toString('base64');
+
+  db.query("CALL SP_CREATE_CreateMovie(?, ?, ?, ?, ?)", [movieName, synopsis, duration, year, image64], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+        // message: err.message || "Un error ocurrió en el servidor"
+      });
+    } else {
+      console.log("Informacion almacenada correctamente");
+      res.status(200).json({
+        "msg": "ok"
+      })
+    }
+  });
+});
+
+
 
 // Obtener películas favoritas de un usuario
 router.get("/favMoviesList/:userId", (req, res) => {

@@ -102,6 +102,22 @@ DELIMITER ;
 -- --------------------------- STORED PROCEDURES PARA LAS PELICULAS ----------------------------------------------------
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- Crear nueva película
+DELIMITER $$
+CREATE PROCEDURE SP_CREATE_CreateMovie(
+IN p_title VARCHAR(50),
+IN p_duration 	INT,
+IN p_year 		INT,
+IN p_synopsis 	TEXT,
+IN p_poster 	LONGTEXT
+)
+BEGIN
+	INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, poster)
+	VALUES (p_title, p_synopsis, p_duration, p_year, p_poster);
+END $$
+DELIMITER $$
+
+
 -- Obtener películas favoritas
 DELIMITER $$
 CREATE PROCEDURE SP_GET_UserFavoriteMovies(IN pUserID INT)
