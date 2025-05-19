@@ -8,11 +8,12 @@ const router = express.Router();
 router.post("/create", archivo.single('image'), (req, res) => {
   const movieName = req.body.movieName;
   const duration = req.body.duration;
-  const year = req.body.movieName;
-  const synopsis = req.body.movieName;
+  const year = req.body.year;
+  const synopsis = req.body.synopsis;
   const image64 = req.file.buffer.toString('base64');
+  console.log("hola");
 
-  db.query("CALL SP_CREATE_CreateMovie(?, ?, ?, ?, ?)", [movieName, synopsis, duration, year, image64], (err, result) => {
+  db.query("CALL SP_CREATE_CreateMovie(?, ?, ?, ?, ?)", [movieName, duration, year, synopsis, image64], (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).json({
@@ -20,14 +21,50 @@ router.post("/create", archivo.single('image'), (req, res) => {
         // message: err.message || "Un error ocurrió en el servidor"
       });
     } else {
+      const movieID = result[0][0];
       console.log("Informacion almacenada correctamente");
       res.status(200).json({
-        "msg": "ok"
+        "msg": "ok",
+        "movieID": movieID
       })
     }
   });
 });
 
+//asignar los generos a una pelicula
+router.post("/link", (req, res) => {
+  const movieID = req.body.movieID;
+  const genres = req.body.genres;
+  console.log(movieID, genres)
+
+  let completados = 0;
+  let errores = 0;
+
+  genres.forEach((element) => {
+    db.query("CALL SP_CREATE_GenreMovie(?, ?)", [element.genreID, movieID.movieID], (err, result) => {
+      if (err) {
+        errores++;
+        console.error("Error al insertar género:", err);
+      } else {
+        completados += 1;
+        if (completados >= genres.length) {
+
+          if (errores > 0) {
+            res.status(500).json({
+              error: "Internal Server Error",
+            });
+          } else {
+            console.log("Géneros asociados correctamente");
+            res.status(200).json({
+              "msg": "ok"
+            })
+          }
+        }
+      }
+    })
+  });
+
+});
 
 
 // Obtener películas favoritas de un usuario
@@ -51,6 +88,7 @@ router.get("/favMoviesList/:userId", (req, res) => {
 // Obtener información de una película
 router.get("/movieInfo/:movieID", (req, res) => {
   const movieID = req.params.movieID;
+  console.log(movieID);
 
   db.query("CALL SP_GET_MovieByID(?)", [movieID], (err, result) => {
     if (err) {
@@ -111,8 +149,11 @@ router.get("/search/:input", (req, res) => {
     }
     movies = result[0] || [];
     movies.forEach(e => {
-      let genres = e.genres.split(', ');
-      e.genres = genres;
+      if (e.genres != null) {
+        let genres = e.genres.split(', ');
+        e.genres = genres;
+      }
+
     });
     res.status(200).json({ movies });
   });

@@ -114,6 +114,19 @@ IN p_poster 	LONGTEXT
 BEGIN
 	INSERT INTO Movies (movieName, synopsis, duration, yearPremiere, poster)
 	VALUES (p_title, p_synopsis, p_duration, p_year, p_poster);
+    
+        SELECT LAST_INSERT_ID() AS movieID;
+END $$
+DELIMITER $$
+
+-- asignar generos
+DELIMITER $$
+CREATE PROCEDURE SP_CREATE_GenreMovie(
+IN p_genreId VARCHAR(50),
+IN p_movieId INT
+)
+BEGIN    
+        INSERT INTO GenreMovies (genreID, movieID) VALUES (p_genreId, p_movieId);
 END $$
 DELIMITER $$
 
@@ -437,6 +450,8 @@ CALL SP_USER_RegisterUser('Aze', 'Azeneth', 'Contreras', 'aze@gmail.com', '123c'
 CALL SP_USER_RegisterUser('Roger', 'Aldo', 'Zapata', 'roger@gmail.com', '123d', 'ffff');
 CALL SP_USER_RegisterUser('Null', 'Uriel', 'Guerrero', 'ryupat@gmail.com', '123e', 'ffff');
 
+
+
 CALL SP_LOGIN_CheckEmail('jose.delosrios@gmail.com');
 CALL SP_LOGIN_LoginUser('jose.delosrios@gmail.com', '123a');
 
@@ -466,3 +481,21 @@ INSERT INTO GenreMovies (genreID, movieID) VALUES (5, 4);
 INSERT INTO GenreMovies (genreID, movieID) VALUES (3, 5);
 
 DROP TRIGGER IF EXISTS TRG_UPDATE_NewRating;
+
+INSERT INTO Users (
+    userUsername,
+    userName,
+    userLastname,
+    email,
+    pass,
+    userType,
+    photo
+) VALUES (
+    'admin01',
+    'NombreAdmin',
+    'ApellidoAdmin',
+    'admin@example.com',
+    'adminpass123',
+    1,
+    'data:image/png;base64,XXXXX' -- Reemplaza XXXXX con tu imagen en base64 o usa un texto temporal
+);

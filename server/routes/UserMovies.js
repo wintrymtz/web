@@ -18,7 +18,10 @@ router.get("/isFavorite/:userID/:movieID", (req, res) => {
 router.post("/addFavorite", (req, res) => {
     const { userID, movieID } = req.body;
     db.query("CALL SP_CREATE_UserMovie(?, ?)", [userID, movieID], (err) => {
-        if (err) return res.status(500).send(err);
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
         res.sendStatus(201);
     });
 });
@@ -27,20 +30,20 @@ router.post("/addFavorite", (req, res) => {
 // Eliminar una película favorita
 router.delete("/favMoviesDelete/:userId/:movieId", (req, res) => {
     const { userId, movieId } = req.params;
-  
+
     db.query("CALL SP_DELETE_UserFavoriteMovie(?, ?)", [userId, movieId], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ msg: "Error al eliminar película favorita" });
         }
-  
+
         if (result.affectedRows > 0) {
             res.status(200).json({ msg: "Película eliminada de favoritos correctamente" });
         } else {
             res.status(404).json({ msg: "Película no encontrada en favoritos" });
         }
     });
-  });
+});
 
 
 module.exports = router;

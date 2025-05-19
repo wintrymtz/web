@@ -1,118 +1,121 @@
-
-
 .crear-pelicula {
-    background: linear-gradient(to bottom, #3d0f64, #000);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 400px;
-    /* margin: auto; */
-    margin: 100px auto 0 auto; /* Mueve el cuadro hacia abajo */
-  }
-  
+  background: linear-gradient(to bottom, #3d0f64, #000);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+  /* margin: auto; */
+  margin: 50px auto 0 auto;
+  /* Mueve el cuadro hacia abajo */
+}
 
 
-  h2 { /*texto de crear pelicula*/
-    color: #a85de6;
-    font-weight: bold; /* Hace que el texto sea más grueso */
-    
-    
-  }
-  
-  .image-upload input {
-    display: none;
-  }
-  
-  .image-preview {
-    width: 100px;
-    height: 100px;
-    background: #555;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    cursor: pointer;
-  }
-  
-  .image-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: none;
-  }
-  
-  textarea {
-    height: 100px;
-  }
-  
-  .buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 15px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .aceptar {
-    background-color: #a85de6;
-    color: white;
-  }
 
-  .editar {
-    background-color: #0bc3e4;
-    color: white;
-  }
-  
-  .cancelar {
-    background-color: #a8324b;
-    color: white;
-  }
-  
-  .error {
-    color: #ff6b6b;
-    font-size: 14px;
-    margin-top: -5px;
-    margin-bottom: 8px;
-    text-align: left;
-  }
-  
-  .input-con-contador {
-    position: relative;
-  }
-  
-  .contador {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 12px;
-    color: #ccc;
-  }
+h2 {
+  /*texto de crear pelicula*/
+  color: #a85de6;
+  font-weight: bold;
+  /* Hace que el texto sea más grueso */
 
-  .buttons .cancelar:hover{
-    background-color: rgb(141, 18, 18);
-  }
 
-  .buttons .aceptar:hover{
-    background-color: rgb(67, 12, 104);
-  }
+}
 
-.buttons .editar:hover{
+.image-upload input {
+  display: none;
+}
+
+.image-preview {
+  width: 100px;
+  height: 100px;
+  background: #555;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+textarea {
+  height: 100px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.aceptar {
+  background-color: #a85de6;
+  color: white;
+}
+
+.editar {
+  background-color: #0bc3e4;
+  color: white;
+}
+
+.cancelar {
+  background-color: #a8324b;
+  color: white;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.input-con-contador {
+  position: relative;
+}
+
+.contador {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.buttons .cancelar:hover {
+  background-color: rgb(141, 18, 18);
+}
+
+.buttons .aceptar:hover {
+  background-color: rgb(67, 12, 104);
+}
+
+.buttons .editar:hover {
   background-color: #153c91;
 }
 
@@ -139,4 +142,19 @@
 .custom-modal .modal-body {
   font-size: 18px;
   font-weight: bold;
+}
+
+.genreItem {
+  background-color: rgb(135, 17, 135);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  margin-right: 5px;
+}
+
+.genreItem:hover {
+  text-decoration: line-through;
+  background-color: #ff6b6b;
 }

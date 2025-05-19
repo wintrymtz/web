@@ -12,14 +12,14 @@ function StarRating({ rating }) {
   return <div className="star-ratingHome">{stars}</div>;
 }
 
-function MovieCard({ title, image, description, calif, year }) {
+function MovieCard({ title, image, description, calif, year, id }) {
 
   const navigate = useNavigate();
   // const numericRating = parseFloat(calif.split("/")[0]) / 2;
   const numericRating = parseFloat(calif / 2);
 
   const handleClick = () => {
-    navigate("/details");
+    navigate(`/details?id=${id}`);
   };
 
   return (

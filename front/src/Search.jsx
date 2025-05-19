@@ -53,7 +53,7 @@ export default function Search() {
     const MoviesGrid = () => (
         <div className="movies-grid">
             {modifiedResults.map((movie, index) => (
-                <MovieCard key={index} title={movie.movieName} image={movie.poster} description={''} calif={movie.rating} year={movie.yearPremiere} />
+                <MovieCard key={index} title={movie.movieName} image={movie.poster} description={''} calif={movie.rating} year={movie.yearPremiere} id={movie.movieID} />
             ))}
         </div>
     );
