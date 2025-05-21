@@ -10,7 +10,7 @@ const userMoviesRoute = require('./routes/UserMovies');
 const userReviewsRoute = require('./routes/UserReviews');
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '20mb' }));
 
 app.listen(3001,
     () => {

@@ -31,6 +31,8 @@ function Profile() {
     }
 
     function requestUpdateUser(formData) {
+
+
         axios.patch("http://localhost:3001/user/update", formData, {
             headers: { "Content-Type": "multipart/form-data" },
         }).then((res) => {
@@ -38,7 +40,7 @@ function Profile() {
             setWarn("Usuario actualizado correctamente");
             setShow(true);
         }).catch((err) => {
-            console.log("(server)", err.response.data.msg);
+            console.log("(server)", err.response);
             setWarn("Error al actualizar");
             setShow(true);
         });
@@ -64,7 +66,7 @@ function Profile() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const usernameRegex = /^\S+$/;
 
-        if (!user.userName.trim() || !user.userLastname.trim() || !user.email.trim() || !user.userUsername.trim() || !user.photo) {
+        if (!user.userName.trim() || !user.userLastname.trim() || !user.email.trim() || !user.userUsername.trim() || !user.image) {
             setWarn("Todos los campos deben llenarse.");
             setShow(true);
             return false;
@@ -103,8 +105,24 @@ function Profile() {
         formData.append('lastName', user.userLastname);
         formData.append('oldImage', user.photo)
 
+        const handleImageChange = (file) => {
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                    const base64 = reader.result;
+                    const base64SinPrefijo = base64.split(',')[1];
+                    localStorage.setItem("userPhoto", base64SinPrefijo);
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+
         if (user.image) {
             formData.append('image', user.image);
+            handleImageChange(user.image);
         } else formData.append('image', null);
         //peticion para update
         requestUpdateUser(formData);
@@ -157,7 +175,7 @@ function Profile() {
                             </div>
                             <div className="input-group">
                                 <label htmlFor="correo">Correo Electrónico</label>
-                                <input value={user.email} type="email" id="email" name="email" onChange={handleChange} />
+                                <input value={user.email} type="email" id="email" name="email" onChange={handleChange} disabled />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="usuario">Nombre de Usuario</label>

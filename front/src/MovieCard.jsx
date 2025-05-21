@@ -24,7 +24,7 @@ function MovieCard({ title, image, description, calif, year, id }) {
 
   return (
     <div className="movie-card" onClick={handleClick}>
-      <img src={image} alt={title} />
+      <img src={`data:image/png;base64,${image}`} alt={title} />
       <h3>{title}</h3>
       <StarRating rating={numericRating} />
       <p>{description}</p>

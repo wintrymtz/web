@@ -13,7 +13,10 @@ const fileFilter = (req, file, cb) => {
 const strg = multer.memoryStorage();
 const archivo = multer({
     storage: strg,
-    fileFilter: fileFilter
+    fileFilter: fileFilter,
+    limits: {
+        fileSize: 10 * 1024 * 1024 // 10MB en bytes
+    }
 });
 
 module.exports = archivo;

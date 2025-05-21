@@ -14,11 +14,16 @@ function Navbar2() {
     useEffect(() => {
         setIamge(localStorage.getItem('userPhoto'));
         setUserType(localStorage.getItem('userType'));
-        setUserType('1'); /// adminnistrador opciones (1 -> admin)
+        console.log(localStorage.getItem('userPhoto'));
+        // setUserType('1'); /// adminnistrador opciones (1 -> admin)
     }, [])
     const handleSearch = (e) => {
         setSearch(e.target.value);
     }
+
+    useEffect(() => {
+        console.log(image);
+    }, [image])
     return (
         <nav data-bs-theme="dark" class="navbar navbar-expand-lg" style={{ backgroundColor: "#181818" }}>
             <div className="container-fluid">
@@ -80,7 +85,7 @@ function Navbar2() {
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
-                    <a href={image === null ? "/register" : "/profile"}><img alt="profile-image" style={{ borderRadius: "50%", width: "50px", marginLeft: "50px" }} src={image === null ? "https://i.pinimg.com/736x/3c/ae/07/3cae079ca0b9e55ec6bfc1b358c9b1e2.jpg" : `data:image/png;base64,${image}`}></img></a>
+                    <a href={image === null ? "/login" : "/profile"}><img alt="profile-image" style={{ borderRadius: "50%", width: "50px", marginLeft: "50px" }} src={image === null || image === "" ? "https://i.pinimg.com/736x/3c/ae/07/3cae079ca0b9e55ec6bfc1b358c9b1e2.jpg" : `data:image/png;base64,${image}`}></img></a>
 
                 </div>
             </div>

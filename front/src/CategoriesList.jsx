@@ -50,6 +50,14 @@ function CategoriesList() {
             return false;
         }
 
+        const exists = categories.some(g => g.genreName.toLowerCase() === categoryName.toLowerCase());
+
+        if (exists) {
+            setWarn("Ese género ya existe");
+            setShow2(true);
+            return false;
+        }
+
         if (categoryName.length < 3) {
             setWarn("El nombre del género no puede tener menos de 3 caracteres");
             setShow2(true);
@@ -124,7 +132,7 @@ function CategoriesList() {
         axios.get("http://localhost:3001/genre/list")
             .then((res) => {
                 setCategories(res.data.genres)
-                // console.log(res.data.users)
+                console.log(res.data.genres)
             }).catch((err) => {
                 console.log('(error)', err.response.data.msg)
             })

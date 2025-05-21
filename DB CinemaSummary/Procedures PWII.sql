@@ -491,11 +491,20 @@ INSERT INTO Users (
     userType,
     photo
 ) VALUES (
-    'admin01',
+    'admin03',
     'NombreAdmin',
     'ApellidoAdmin',
-    'admin@example.com',
+    'admin@example3.com',
     'adminpass123',
     1,
-    'data:image/png;base64,XXXXX' -- Reemplaza XXXXX con tu imagen en base64 o usa un texto temporal
+    ''
+),
+(
+    'admin02',
+    'NombreAdmin',
+    'ApellidoAdmin',
+    'admin@example2.com',
+    'adminpass123',
+    1,
+    ''
 );
