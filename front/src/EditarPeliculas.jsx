@@ -60,13 +60,13 @@ const EditarPeliculas = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-  
+
     reader.onloadend = () => {
       const base64String = reader.result;
-      const base64ImageOnly = base64String.split(',')[1]; 
-      setImagen(base64ImageOnly); 
+      const base64ImageOnly = base64String.split(',')[1];
+      setImagen(base64ImageOnly);
     };
-  
+
     if (file) {
       reader.readAsDataURL(file);
     }
@@ -110,7 +110,7 @@ const EditarPeliculas = () => {
       } catch (error) {
         console.error("Error al actualizar película:", error);
       }
-      
+
     }
   };
 
@@ -136,7 +136,7 @@ const EditarPeliculas = () => {
       <Navbar2 />
 
       <div className="crear-pelicula">
-        
+
         <h2>Editar Película</h2>
 
         {/* --------Imagen--------- */}
@@ -151,34 +151,34 @@ const EditarPeliculas = () => {
 
         {/* --------Titulo--------- */}
         <div className="input-con-contador">
-          <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
+          <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""} />
           <div className="contador">{titulo.length}/40</div>
         </div>
         {errores.titulo && <p className="error">{errores.titulo}</p>}
 
 
-        {/* --------Género--------- */}
+        {/* --------Género---------
         <select value={genero} onChange={(e) => setGenero(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}>
           <option value="">Seleccionar Género</option>
           {generosDisponibles.map((g, idx) => (
             <option key={idx} value={g}>{g}</option>
           ))}
         </select>
-        {errores.genero && <p className="error">{errores.genero}</p>}
+        {errores.genero && <p className="error">{errores.genero}</p>} */}
 
 
         {/* --------Duracion--------- */}
-        <input type="text" placeholder="Duración (minutos)" value={duracion} onChange={(e) => setDuracion(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
+        <input type="text" placeholder="Duración (minutos)" value={duracion} onChange={(e) => setDuracion(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""} />
         {errores.duracion && <p className="error">{errores.duracion}</p>}
 
 
         {/* --------Año--------- */}
-        <input type="text" placeholder="Año de estreno" value={anio} onChange={(e) => setAnio(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
+        <input type="text" placeholder="Año de estreno" value={anio} onChange={(e) => setAnio(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""} />
         {errores.anio && <p className="error">{errores.anio}</p>}
 
 
         {/* --------Sinopsis--------- */}
-        <textarea placeholder="Sinopsis" value={sinopsis} onChange={(e) => setSinopsis(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""}/>
+        <textarea placeholder="Sinopsis" value={sinopsis} onChange={(e) => setSinopsis(e.target.value)} disabled={!editMode} className={!editMode ? "disabled-input" : ""} />
         {errores.sinopsis && <p className="error">{errores.sinopsis}</p>}
 
 
@@ -187,7 +187,7 @@ const EditarPeliculas = () => {
           <button className="editar" onClick={() => setEditMode(true)}>Editar</button>
           <button className="cancelar" onClick={handleCancelar} disabled={!editMode}>Cancelar</button>
           <button className="aceptar" onClick={handleSubmit} disabled={!editMode}>Aceptar</button>
-        </div>        
+        </div>
       </div>
 
       <br></br><br></br>
