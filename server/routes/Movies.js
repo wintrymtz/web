@@ -163,4 +163,18 @@ router.get("/search/:input", (req, res) => {
 
 
 
+// Obtener las 4 películas mejor calificadas para mostrar en el Home
+router.get("/topRated", (req, res) => {
+  db.query("CALL SP_GET_TopMovies()", (err, result) => {
+    if (err) {
+      console.error("Error al obtener películas mejor calificadas:", err);
+      return res.status(500).json({ msg: "Error al obtener top películas" });
+    }
+
+    const topMovies = result[0] || [];
+    res.status(200).json({ movies: topMovies });
+  });
+});
+
+
 module.exports = router;

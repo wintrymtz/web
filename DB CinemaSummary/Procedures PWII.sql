@@ -220,6 +220,19 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+-- Peliculas mejor calificadas para el Home
+DELIMITER //
+CREATE PROCEDURE SP_GET_TopMovies()
+BEGIN
+    SELECT movieID, movieName, synopsis, poster, rating, yearPremiere
+    FROM Movies
+    ORDER BY rating DESC
+    LIMIT 12;
+END //
+DELIMITER ;
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- --------------------------- STORED PROCEDURES PARA LAS REVIEWS ------------------------------------------------------
 -- ---------------------------------------------------------------------------------------------------------------------
