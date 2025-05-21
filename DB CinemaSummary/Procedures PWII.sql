@@ -172,15 +172,15 @@ CREATE PROCEDURE SP_UPDATE_Movie (IN p_movieID INT, IN p_movieName VARCHAR(50), 
 BEGIN
   DECLARE genre_id INT;
 
-  SELECT genreID INTO genre_id FROM Genres WHERE genreName = p_genreName;
+  -- SELECT genreID INTO genre_id FROM Genres WHERE genreName = p_genreName;
 
   UPDATE Movies SET movieName = p_movieName, synopsis = p_synopsis, poster = p_poster, duration = p_duration, yearPremiere = p_yearPremiere
   WHERE movieID = p_movieID;
 
-  DELETE FROM GenreMovies WHERE movieID = p_movieID;
+  -- DELETE FROM GenreMovies WHERE movieID = p_movieID;
 
-  INSERT INTO GenreMovies (genreID, movieID)
-  VALUES (genre_id, p_movieID);
+ -- INSERT INTO GenreMovies (genreID, movieID)
+ -- VALUES (genre_id, p_movieID);
 END //
 DELIMITER ;
  
