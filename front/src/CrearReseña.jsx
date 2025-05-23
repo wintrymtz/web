@@ -9,6 +9,7 @@ const CrearReseña = ({ onClose, movieID, onReviewSaved }) => {
   const [hover, setHover] = useState(0);
   const [error, setError] = useState("");
 
+
   const handleGuardar = async () => {
     if (textoReseña.trim().length < 15) {
       setError("La reseña debe tener al menos 15 carácteres.");
@@ -20,18 +21,18 @@ const CrearReseña = ({ onClose, movieID, onReviewSaved }) => {
     try {
       await axios.post("http://localhost:3001/reviews/createReview", {
         descReview: textoReseña,
-        rating: (calificacion*2),
+        rating: (calificacion * 2),
         userID,
         movieID
       });
 
-      onReviewSaved(); 
-      onClose();       
+      onReviewSaved();
+      onClose();
     } catch (error) {
       console.error("Error al guardar la reseña:", error);
       setError("Ocurrió un error al guardar la reseña.");
     }
-    
+
     // setError("");
     // setTextoReseña("");
     // setCalificacion(0);

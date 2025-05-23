@@ -11,6 +11,12 @@ const PeliculasFavoritas = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!localStorage.getItem('userID')) {
+            navigate('/');
+        }
+    }, [navigate])
+
+    useEffect(() => {
         const userID = parseInt(localStorage.getItem("userID"));
         console.log("userID:", userID);
 
@@ -33,10 +39,10 @@ const PeliculasFavoritas = () => {
 
     const eliminarFavorita = async (movieID) => {
         const userID = parseInt(localStorage.getItem("userID"));
-    
+
         try {
             await axios.delete(`http://localhost:3001/usermovies/favMoviesDelete/${userID}/${movieID}`);
-            
+
             // Actualiza la lista local sin la película eliminada
             setFavorites(prev => prev.filter(p => p.movieID !== movieID));
             setDeleteMovie(null);
@@ -49,7 +55,7 @@ const PeliculasFavoritas = () => {
         <div className="favoritas-container2">
             <Navbar2 />
 
-            <br/><br/><h1>Tus Películas Favoritas</h1>
+            <br /><br /><h1>Tus Películas Favoritas</h1>
 
             <div className="favoritas-grid2">
                 {favorites.map(peli => (
@@ -59,9 +65,9 @@ const PeliculasFavoritas = () => {
                             <img src={`data:image/png;base64,${peli.poster}`} alt={peli.movieName} className="favorita-img2" />
 
                             <button className="favorita-star2" onClick={(e) => {
-                                    e.stopPropagation();
-                                    setDeleteMovie(peli.movieID);
-                                }}>
+                                e.stopPropagation();
+                                setDeleteMovie(peli.movieID);
+                            }}>
                                 <FaStar size={35} />
                             </button>
 

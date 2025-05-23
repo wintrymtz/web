@@ -12,6 +12,12 @@ const ResenasFavoritas = () => {
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
+    if (!localStorage.getItem('userID')) {
+      navigate('/');
+    }
+  }, [navigate])
+
+  useEffect(() => {
     if (!userID) return;
     axios
       .get(`http://localhost:3001/reviews/favReviewsList/${userID}`)

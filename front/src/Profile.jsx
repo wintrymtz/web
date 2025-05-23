@@ -5,12 +5,14 @@ import "./css/usersList.css";
 import PopUp1 from "./PopUp1";
 import Footer from "./Footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
     const [user, setUser] = useState([]);
     const [isSet, setIsSet] = useState(false);
     const [show, setShow] = useState(false);
     const [warn, setWarn] = useState('');
+    const navigate = useNavigate();
 
     const [image, setImage] = useState('');
 
@@ -19,6 +21,12 @@ function Profile() {
             { userID: localStorage.getItem('userID'), userUsername: "wintry", userName: "jaime", userLastname: 'miau', email: 'asdsad@', photo: localStorage.getItem('userPhoto') }
         );
     }
+
+    useEffect(() => {
+        if (!localStorage.getItem('userID')) {
+            navigate('/');
+        }
+    }, [navigate])
 
     function requestGetUser(id) {
         axios.get(`http://localhost:3001/user/${id}`)

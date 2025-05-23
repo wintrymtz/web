@@ -29,6 +29,16 @@ const EditarPeliculas = () => {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem('userID')) {
+      navigate('/');
+    }
+
+    if (localStorage.getItem('userType') === '0') {
+      navigate('/');
+    }
+  }, [navigate])
+
+  useEffect(() => {
     const id = obtenerIdDeURL();
 
     const fetchData = async () => {

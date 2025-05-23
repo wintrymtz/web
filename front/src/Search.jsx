@@ -50,6 +50,12 @@ export default function Search() {
     const [genre, setGenre] = useState("");
     const nav = useNavigate();
 
+    useEffect(() => {
+        if (!localStorage.getItem('userID')) {
+            nav('/');
+        }
+    }, [nav])
+
     const MoviesGrid = () => (
         <div className="movies-grid">
             {modifiedResults.map((movie, index) => (

@@ -6,11 +6,23 @@ import "./css/usersList.css";
 import PopUp2 from "./PopUp2";
 import PopUp1 from "./PopUp1";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function UsersList() {
     const [users, setUsers] = useState([]);
     const [show, setShow] = useState(false);
     const [userDelete, setUserDelete] = useState(null);
+    const nav = useNavigate();
+
+    useEffect(() => {
+        if (!localStorage.getItem('userID')) {
+            nav('/');
+        }
+
+        if (localStorage.getItem('userType') === '0') {
+            nav('/');
+        }
+    }, [nav])
 
     function dummy() {
         setUsers([

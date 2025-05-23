@@ -6,6 +6,7 @@ import "./css/usersList.css";
 import PopUp2 from "./PopUp2";
 import PopUp1 from "./PopUp1";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CategoriesList() {
     const [categories, setCategories] = useState([]);
@@ -18,6 +19,7 @@ function CategoriesList() {
     const [categoryDesc, setCategoryDesc] = useState("");
 
     const [warn, setWarn] = useState('');
+    const nav = useNavigate();
 
 
     function handleCategoryName(e) {
@@ -145,6 +147,17 @@ function CategoriesList() {
         }
         requestGetGenres();
     }, [categoryCreate,]);
+
+    useEffect(() => {
+        if (!localStorage.getItem('userID')) {
+            nav('/');
+        }
+
+        if (localStorage.getItem('userType') === '0') {
+            nav('/');
+        }
+
+    }, [nav])
 
     return (
         <div>

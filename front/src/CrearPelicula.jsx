@@ -24,6 +24,11 @@ const CrearPelicula = ({ onClose }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showRedirect, setShowRedirect] = useState(false);
 
+  useEffect(() => {
+    if (!localStorage.getItem('userID')) {
+      navigate('/');
+    }
+  }, [navigate])
 
   function requestGetGenres() {
     axios.get("http://localhost:3001/genre/list")
